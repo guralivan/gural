@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Получаем путь к приложению
+APP_PATH="$(dirname "$0")"
+PROJECT_PATH="$(dirname "$APP_PATH")"
+PROJECT_PATH="$(dirname "$PROJECT_PATH")"
+PROJECT_PATH="$(dirname "$PROJECT_PATH")"
+
+# Переходим в папку с проектом
+cd "$PROJECT_PATH"
+
+# Активируем виртуальное окружение
+source venv/bin/activate
+
+# Запускаем приложение
+python3 -m streamlit run contract_generator_app.py --server.port 8507

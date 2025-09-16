@@ -1,0 +1,19 @@
+{
+  "product_name": "Тренч коричневый",
+  "product_type": "Тренчкот",
+  "cost_price": 3112.0,
+  "retail_price": 20000.0,
+  "discount_percent": 62.0,
+  "commission_rate": 31.0,
+  "logistics_cost": 360.0,
+  "advertising_percent": 5.0,
+  "buyout_percent": 18.0,
+  "storage_cost": 20.0,
+  "stock_quantity": 180,
+  "spp_discount": 25.0,
+  "timestamp": "2025-08-25T18:22:17.163497",
+  "created_date": "2025-08-25 18:22:17",
+  "filename": "Тренч коричневый_20250825_182217.json",
+  "updated_date": "2025-09-15 08:16:15",
+  "purchased_quantity": 266
+}

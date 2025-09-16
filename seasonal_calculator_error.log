@@ -1,0 +1,4 @@
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+/bin/bash: /Users/ivangural/Downloads/wb_dashboard_streamlit/start_seasonal_calculator.sh: Operation not permitted
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: Operation not permitted
+/bin/bash: /Users/ivangural/Downloads/wb_dashboard_streamlit/start_seasonal_calculator.sh: Operation not permitted

@@ -1,0 +1,19 @@
+{
+  "product_name": "Пиджак кож ворот",
+  "product_type": "Пиджак",
+  "cost_price": 1782.5,
+  "retail_price": 10000.0,
+  "discount_percent": 20.0,
+  "commission_rate": 31.0,
+  "logistics_cost": 160.0,
+  "advertising_percent": 3.0,
+  "buyout_percent": 25.0,
+  "storage_cost": 20.0,
+  "purchased_quantity": 400,
+  "stock_quantity": 400,
+  "spp_discount": 25.0,
+  "timestamp": "2025-08-25T22:53:10.008998",
+  "created_date": "2025-08-25 22:53:10",
+  "filename": "Пиджак кож ворот_20250825_225310.json",
+  "updated_date": "2025-09-15 09:50:51"
+}

@@ -1,0 +1,19 @@
+{
+  "product_name": "Пиджак кориченвый",
+  "cost_price": 2111.0,
+  "retail_price": 8000.0,
+  "discount_percent": 3.0,
+  "commission_rate": 31.0,
+  "logistics_cost": 180.0,
+  "advertising_percent": 5.0,
+  "buyout_percent": 22.0,
+  "storage_cost": 20.0,
+  "stock_quantity": 245,
+  "spp_discount": 25.0,
+  "timestamp": "2025-08-25T18:19:43.482594",
+  "created_date": "2025-08-25 18:19:43",
+  "filename": "Пиджак кориченвый_20250825_181943.json",
+  "product_type": "Пиджак",
+  "updated_date": "2025-09-15 13:29:07",
+  "purchased_quantity": 532
+}

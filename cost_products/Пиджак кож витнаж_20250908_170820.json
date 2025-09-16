@@ -1,0 +1,29 @@
+{
+  "product_name": "Пиджак кож витнаж",
+  "price_yuan": 102.0,
+  "delivery_russia_usd": 3.5,
+  "logistics_china": 28700.0,
+  "weight": 1000.0,
+  "quantity": 100,
+  "ff": 20000.0,
+  "development": 0.0,
+  "other_expenses": 0.0,
+  "yuan_rate": 11.5,
+  "usd_rate": 82.0,
+  "results": {
+    "price_rub_china": 117300.0,
+    "price_rub_china_per_unit": 1173.0,
+    "cost_per_unit": 1660.0,
+    "total_cost": 166000.0,
+    "logistics_china_per_unit": 287.0,
+    "logistics_china_total": 28700.0,
+    "ff_per_unit": 200.0,
+    "ff_total": 20000.0,
+    "development_per_unit": 0.0,
+    "development_total": 0.0,
+    "other_expenses_per_unit": 0.0,
+    "other_expenses_total": 0.0
+  },
+  "timestamp": "2025-09-08T17:08:20.720487",
+  "created_date": "2025-09-08 17:08:20"
+}

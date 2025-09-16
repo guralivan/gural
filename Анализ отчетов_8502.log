@@ -1,0 +1,660 @@
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://localhost:8502
+
+2025-09-09 10:24:46.897 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:24:47.553 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:24:55.359 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:24:55.660 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:24:55.837 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:24:56.064 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:24:56.090 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:25:14.908 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:15.276 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:15.566 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:15.894 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:15.924 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:25:22.333 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:22.784 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:23.016 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:23.195 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:23.207 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:25:32.961 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:33.281 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:33.692 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:34.013 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:34.032 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:25:39.536 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:39.870 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:40.117 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:40.327 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:25:40.340 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:26:04.358 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:04.936 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:05.318 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:05.649 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:05.676 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:26:08.794 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:09.156 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:09.412 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:09.676 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:09.700 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:26:40.660 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:41.238 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:41.636 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:41.930 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:41.962 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:26:42.650 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:42.922 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:43.277 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:43.617 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:43.644 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:26:44.678 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:44.967 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:45.245 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:45.498 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:26:45.522 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:28:06.573 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:28:07.174 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:28:07.583 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:28:08.015 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:28:08.039 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:29:08.630 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:29:11.189 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:29:11.515 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:29:11.897 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:29:12.220 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:29:12.262 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:29:51.309 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:29:52.119 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:29:53.001 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:29:53.484 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:29:53.591 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:29:53.958 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:29:53.990 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:29:59.576 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:30:00.417 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:30:00.650 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:30:01.047 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:30:01.074 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:30:16.791 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:30:17.938 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:30:18.742 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:30:19.306 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2277, in main
+    analyze_single_file_data(df2, file_name_2, "tab2_")
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 1719, in analyze_single_file_data
+    st.plotly_chart(fig_comparison, use_container_width=True)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/metrics_util.py", line 443, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/elements/plotly_chart.py", line 558, in plotly_chart
+    plotly_chart_proto.id = compute_and_register_element_id(
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        "plotly_chart",
+        ^^^^^^^^^^^^^^^
+    ...<7 lines>...
+        use_container_width=use_container_width,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/elements/lib/utils.py", line 253, in compute_and_register_element_id
+    _register_element_id(ctx, element_type, element_id)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/elements/lib/utils.py", line 150, in _register_element_id
+    raise StreamlitDuplicateElementId(element_type)
+streamlit.errors.StreamlitDuplicateElementId: There are multiple `plotly_chart` elements with the same auto-generated ID. When this element is created, it is assigned an internal ID based on the element type and provided parameters. Multiple elements with the same type and parameters will cause this error.
+
+To fix this error, please pass a unique `key` argument to the `plotly_chart` element.
+2025-09-09 10:30:38.941 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:30:40.015 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:30:40.920 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:30:41.627 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:30:41.661 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:31:36.945 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:31:37.474 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:31:37.587 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:31:38.240 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:31:38.266 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+2025-09-09 10:31:40.000 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:31:40.254 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:31:40.374 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:31:40.854 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2025-09-09 10:31:40.910 Uncaught app execution
+Traceback (most recent call last):
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/venv/lib/python3.13/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 3118, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivangural/Downloads/wb_dashboard_streamlit/3/weekly_expenses_analyzer_final_stable.py", line 2569, in main
+    roi_selected_period = ((total_after_tax_general - total_invested_from_second_general) / total_invested_from_second_general) * 100 if total_invested_from_second_general > 0 else 0
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'total_invested_from_second_general' where it is not associated with a value
+  Stopping...

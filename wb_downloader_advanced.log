@@ -1,0 +1,74 @@
+2025-09-12 14:12:40,791 - INFO - ====== WebDriver manager ======
+2025-09-12 14:12:41,848 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-12 14:12:42,774 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-12 14:12:43,064 - INFO - There is no [mac64] chromedriver "140.0.7339.82" for browser google-chrome "140.0.7339" in cache
+2025-09-12 14:12:43,082 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-12 14:12:43,559 - INFO - WebDriver version 140.0.7339.82 selected
+2025-09-12 14:12:43,567 - INFO - Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/140.0.7339.82/mac-x64/chromedriver-mac-x64.zip
+2025-09-12 14:12:43,568 - INFO - About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/140.0.7339.82/mac-x64/chromedriver-mac-x64.zip
+2025-09-12 14:12:43,780 - INFO - Driver downloading response is 200
+2025-09-12 14:12:45,828 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-12 14:12:46,264 - INFO - Driver has been saved in cache [/Users/ivangural/.wdm/drivers/chromedriver/mac64/140.0.7339.82]
+2025-09-12 14:12:51,810 - INFO - ✅ Веб-драйвер успешно настроен
+2025-09-12 14:12:51,811 - INFO - 🔐 Начинаем процесс входа в личный кабинет...
+2025-09-12 14:13:18,315 - INFO - ====== WebDriver manager ======
+2025-09-12 14:13:20,976 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-12 14:13:21,676 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-12 14:13:22,829 - INFO - Driver [/Users/ivangural/.wdm/drivers/chromedriver/mac64/140.0.7339.82/chromedriver-mac-x64/chromedriver] found in cache
+2025-09-12 14:13:32,573 - INFO - ✅ Веб-драйвер успешно настроен
+2025-09-12 14:13:32,573 - INFO - 🔐 Начинаем процесс входа в личный кабинет...
+2025-09-12 14:13:38,490 - ERROR - ❌ Ошибка при входе: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=140.0.7339.133)
+Stacktrace:
+0   chromedriver                        0x000000010522e028 chromedriver + 6361128
+1   chromedriver                        0x000000010522572a chromedriver + 6326058
+2   chromedriver                        0x0000000104c85c20 chromedriver + 429088
+3   chromedriver                        0x0000000104c5a950 chromedriver + 252240
+4   chromedriver                        0x0000000104d05f98 chromedriver + 954264
+5   chromedriver                        0x0000000104d24c6c chromedriver + 1080428
+6   chromedriver                        0x0000000104cfdbd3 chromedriver + 920531
+7   chromedriver                        0x0000000104cc98ff chromedriver + 706815
+8   chromedriver                        0x0000000104ccadc1 chromedriver + 712129
+9   chromedriver                        0x00000001051ebfc0 chromedriver + 6090688
+10  chromedriver                        0x00000001051efe55 chromedriver + 6106709
+11  chromedriver                        0x00000001051c7287 chromedriver + 5939847
+12  chromedriver                        0x00000001051f08cf chromedriver + 6109391
+13  chromedriver                        0x00000001051b65f4 chromedriver + 5871092
+14  chromedriver                        0x0000000105212a78 chromedriver + 6249080
+15  chromedriver                        0x0000000105212c3c chromedriver + 6249532
+16  chromedriver                        0x0000000105225301 chromedriver + 6324993
+17  libsystem_pthread.dylib             0x00007ff81903c259 _pthread_start + 125
+18  libsystem_pthread.dylib             0x00007ff819037c7b thread_start + 15
+
+2025-09-12 14:13:38,734 - INFO - 🔒 Браузер закрыт
+2025-09-12 14:13:40,404 - WARNING - ⚠️ Кнопка входа не найдена, возможно уже авторизованы
+2025-09-12 14:14:20,590 - ERROR - ❌ Не найден элемент для ввода телефона
+2025-09-12 14:14:20,965 - INFO - 🔒 Браузер закрыт
+2025-09-12 14:54:12,421 - INFO - ====== WebDriver manager ======
+2025-09-12 14:54:13,250 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-12 14:54:14,402 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-12 14:54:15,211 - INFO - Driver [/Users/ivangural/.wdm/drivers/chromedriver/mac64/140.0.7339.82/chromedriver-mac-x64/chromedriver] found in cache
+2025-09-12 14:54:18,207 - INFO - ✅ Веб-драйвер успешно настроен
+2025-09-12 14:54:18,212 - INFO - 🔐 Начинаем процесс входа в личный кабинет...
+2025-09-12 14:54:59,349 - INFO - ====== WebDriver manager ======
+2025-09-12 14:55:00,860 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-12 14:55:01,642 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-12 14:55:02,469 - INFO - Driver [/Users/ivangural/.wdm/drivers/chromedriver/mac64/140.0.7339.82/chromedriver-mac-x64/chromedriver] found in cache
+2025-09-12 14:55:05,454 - INFO - ✅ Веб-драйвер успешно настроен
+2025-09-12 14:55:05,459 - INFO - 🔐 Начинаем процесс входа в личный кабинет...
+2025-09-12 14:55:09,667 - WARNING - ⚠️ Кнопка входа не найдена, возможно уже авторизованы
+2025-09-12 14:55:50,081 - ERROR - ❌ Не найден элемент для ввода телефона
+2025-09-12 14:55:50,447 - INFO - 🔒 Браузер закрыт
+2025-09-12 14:55:59,197 - WARNING - ⚠️ Кнопка входа не найдена, возможно уже авторизованы
+2025-09-12 14:56:39,364 - ERROR - ❌ Не найден элемент для ввода телефона
+2025-09-12 14:56:39,698 - INFO - 🔒 Браузер закрыт
+2025-09-12 15:48:35,481 - INFO - ====== WebDriver manager ======
+2025-09-12 15:48:36,717 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-12 15:48:38,149 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-12 15:48:39,734 - INFO - Driver [/Users/ivangural/.wdm/drivers/chromedriver/mac64/140.0.7339.82/chromedriver-mac-x64/chromedriver] found in cache
+2025-09-12 15:48:46,185 - INFO - ✅ Веб-драйвер успешно настроен
+2025-09-12 15:48:46,188 - INFO - 🔐 Начинаем процесс входа в личный кабинет...
+2025-09-12 15:49:51,105 - WARNING - ⚠️ Кнопка входа не найдена, возможно уже авторизованы
+2025-09-12 15:50:31,307 - ERROR - ❌ Не найден элемент для ввода телефона
+2025-09-12 15:50:31,942 - INFO - 🔒 Браузер закрыт

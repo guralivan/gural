@@ -1,0 +1,29 @@
+{
+  "product_name": "Пиджак с поясом клетка",
+  "price_yuan": 102.0,
+  "delivery_russia_usd": 3.5,
+  "logistics_china": 34440.0,
+  "weight": 600.0,
+  "quantity": 200,
+  "ff": 30000.0,
+  "development": 0.0,
+  "other_expenses": 0.0,
+  "yuan_rate": 11.5,
+  "usd_rate": 82.0,
+  "results": {
+    "price_rub_china": 234600.0,
+    "price_rub_china_per_unit": 1173.0,
+    "cost_per_unit": 1495.2,
+    "total_cost": 299040.0,
+    "logistics_china_per_unit": 172.2,
+    "logistics_china_total": 34440.0,
+    "ff_per_unit": 150.0,
+    "ff_total": 30000.0,
+    "development_per_unit": 0.0,
+    "development_total": 0.0,
+    "other_expenses_per_unit": 0.0,
+    "other_expenses_total": 0.0
+  },
+  "timestamp": "2025-09-08T16:09:46.257165",
+  "created_date": "2025-09-08 16:09:46"
+}

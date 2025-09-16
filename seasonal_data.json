@@ -1,0 +1,200 @@
+{
+  "years": {
+    "2024": {
+      "season1": {
+        "name": "Сезон 1",
+        "months": 6,
+        "invested": 0.0,
+        "profitability": 120.0,
+        "monthly_expenses": {},
+        "one_time_expenses": {},
+        "next_season_investment": 0,
+        "revenue": 0.0,
+        "profit": 0.0,
+        "balance": 0.0,
+        "total_monthly_expenses": 0,
+        "total_one_time_expenses": 0,
+        "total_expenses": 0,
+        "total_loans": 0,
+        "loans": {},
+        "total_invested": 0.0
+      },
+      "season2": {
+        "name": "Сезон 2",
+        "months": 6,
+        "invested": 600000.0,
+        "profitability": 120.0,
+        "monthly_expenses": {
+          "Квартира": 55000.0
+        },
+        "one_time_expenses": {},
+        "next_season_investment": 3800000.0,
+        "revenue": 7480000.000000001,
+        "profit": 3350000.000000001,
+        "balance": 3350000.000000001,
+        "total_monthly_expenses": 330000.0,
+        "total_one_time_expenses": 0,
+        "total_expenses": 4130000.0,
+        "total_loans": 2800000.0,
+        "loans": {
+          "Д": 2800000.0
+        },
+        "total_invested": 3400000.0
+      }
+    },
+    "2025": {
+      "season1": {
+        "name": "2025 - Сезон 1",
+        "months": 6,
+        "invested": 0.0,
+        "profitability": 0.0,
+        "monthly_expenses": {},
+        "one_time_expenses": {},
+        "next_season_investment": 0,
+        "revenue": 0,
+        "profit": 0,
+        "balance": 0,
+        "total_monthly_expenses": 0,
+        "total_one_time_expenses": 0,
+        "total_expenses": 0,
+        "total_loans": 0,
+        "loans": {},
+        "total_invested": 0.0
+      },
+      "season2": {
+        "name": "2025 - Сезон 2",
+        "months": 6,
+        "invested": 2000000.0,
+        "profitability": 50.0,
+        "monthly_expenses": {
+          "Квартира": 45000.0,
+          "Продукты": 30000.0,
+          "ЖКХ": 10000.0,
+          "Сад": 78000.0
+        },
+        "one_time_expenses": {
+          "Страховка": 45000.0,
+          "Одежда": 100000.0,
+          "Прочие": 100000.0,
+          "Займ": 500000.0
+        },
+        "next_season_investment": 0,
+        "revenue": 3000000.0,
+        "profit": 1277000.0,
+        "balance": 1277000.0,
+        "total_monthly_expenses": 978000.0,
+        "total_one_time_expenses": 745000.0,
+        "total_expenses": 1723000.0,
+        "total_loans": 0,
+        "loans": {},
+        "total_invested": 2000000.0
+      }
+    },
+    "2026": {
+      "season1": {
+        "name": "2026 - Сезон 1",
+        "months": 6,
+        "invested": 1700000.0,
+        "profitability": 120.0,
+        "monthly_expenses": {
+          "Квартира": 45000.0,
+          "Продукты": 30000.0,
+          "ЖКХ": 10000.0,
+          "Сад": 78000.0
+        },
+        "one_time_expenses": {
+          "Страховка": 45000.0,
+          "Одежда": 100000.0,
+          "Прочие": 100000.0
+        },
+        "next_season_investment": 0,
+        "revenue": 3740000.0000000005,
+        "profit": 2517000.0000000005,
+        "balance": 2517000.0000000005,
+        "total_monthly_expenses": 978000.0,
+        "total_one_time_expenses": 245000.0,
+        "total_expenses": 1223000.0,
+        "total_loans": 0,
+        "loans": {},
+        "total_invested": 1700000.0
+      },
+      "season2": {
+        "name": "2026 - Сезон 2",
+        "months": 6,
+        "invested": 2500000.0,
+        "profitability": 120.0,
+        "monthly_expenses": {
+          "Квартира": 45000.0,
+          "Продукты": 30000.0,
+          "ЖКХ": 10000.0,
+          "Сад": 78000.0
+        },
+        "one_time_expenses": {
+          "Страховка": 45000.0,
+          "Одежда": 100000.0,
+          "Прочие": 100000.0,
+          "Отдых": 300000.0
+        },
+        "next_season_investment": 0,
+        "revenue": 5500000.0,
+        "profit": 3977000.0,
+        "balance": 3977000.0,
+        "total_monthly_expenses": 978000.0,
+        "total_one_time_expenses": 545000.0,
+        "total_expenses": 1523000.0,
+        "total_loans": 0,
+        "loans": {},
+        "total_invested": 2500000.0
+      }
+    },
+    "2027": {
+      "season1": {
+        "name": "2027 - Сезон 1",
+        "months": 6,
+        "invested": 19620000.0,
+        "profitability": 120.0,
+        "monthly_expenses": {
+          "Квартира": 45000.0,
+          "Продукты": 30000.0,
+          "ЖКХ": 10000.0,
+          "Сад": 78000.0
+        },
+        "one_time_expenses": {
+          "Страховка": 45000.0,
+          "Одежда": 100000.0,
+          "Прочие": 100000.0,
+          "Отдых": 300000.0
+        },
+        "next_season_investment": 0,
+        "revenue": 43164000.0,
+        "profit": 41641000.0,
+        "balance": 41641000.0,
+        "total_monthly_expenses": 978000.0,
+        "total_one_time_expenses": 545000.0,
+        "total_expenses": 1523000.0,
+        "total_loans": 0,
+        "loans": {},
+        "total_invested": 19620000.0
+      },
+      "season2": {
+        "name": "2027 - Сезон 2",
+        "months": 6,
+        "invested": 7100000.0,
+        "profitability": 120.0,
+        "monthly_expenses": {},
+        "one_time_expenses": {},
+        "next_season_investment": 0,
+        "revenue": 15620000.000000002,
+        "profit": 15620000.000000002,
+        "balance": 15620000.000000002,
+        "total_monthly_expenses": 0,
+        "total_one_time_expenses": 0,
+        "total_expenses": 0,
+        "total_loans": 0,
+        "loans": {},
+        "total_invested": 7100000.0
+      }
+    }
+  },
+  "carry_over": true
+}

@@ -1,0 +1,30 @@
+{
+  "product_name": "Пиджак старый",
+  "price_yuan": 80.0,
+  "delivery_russia_usd": 3.5,
+  "logistics_china": 40180.0,
+  "weight": 700.0,
+  "quantity": 200,
+  "ff": 15000.0,
+  "development": 0.0,
+  "other_expenses": 0.0,
+  "yuan_rate": 11.5,
+  "usd_rate": 82.0,
+  "results": {
+    "price_rub_china": 184000.0,
+    "price_rub_china_per_unit": 920.0,
+    "cost_per_unit": 1195.9,
+    "total_cost": 239180.0,
+    "logistics_china_per_unit": 200.9,
+    "logistics_china_total": 40180.0,
+    "ff_per_unit": 75.0,
+    "ff_total": 15000.0,
+    "development_per_unit": 0.0,
+    "development_total": 0.0,
+    "other_expenses_per_unit": 0.0,
+    "other_expenses_total": 0.0
+  },
+  "timestamp": "2025-09-09T10:14:56.775819",
+  "created_date": "2025-09-09 10:14:56",
+  "filename": "Пиджак старый_20250909_101320.json"
+}

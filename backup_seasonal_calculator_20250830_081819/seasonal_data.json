@@ -1,0 +1,49 @@
+{
+  "seasons": {
+    "season1": {
+      "name": "Сезон 1",
+      "months": 6,
+      "invested": 2000000.0,
+      "profitability": 130.0,
+      "monthly_expenses": {
+        "Квартира": 55000.0
+      },
+      "one_time_expenses": {
+        "Отдых": 300000.0,
+        "2": 800000.0,
+        "Одежда": 100000.0,
+        "Доп расходы": 100000.0
+      },
+      "revenue": 4600000.0,
+      "profit": 2970000.0,
+      "balance": 2970000.0,
+      "total_monthly_expenses": 330000.0,
+      "total_one_time_expenses": 1300000.0,
+      "total_expenses": 1630000.0,
+      "next_season_investment": 0
+    },
+    "season2": {
+      "name": "Сезон 2",
+      "months": 6,
+      "invested": 2970000.0,
+      "profitability": 120.0,
+      "monthly_expenses": {
+        "Квартира": 55000.0
+      },
+      "one_time_expenses": {
+        "Отдых": 300000.0,
+        "2": 800000.0,
+        "Одежда": 100000.0,
+        "Доп расходы": 100000.0
+      },
+      "revenue": 6534000.000000001,
+      "profit": 4904000.000000001,
+      "balance": 4904000.000000001,
+      "total_monthly_expenses": 330000.0,
+      "total_one_time_expenses": 1300000.0,
+      "total_expenses": 1630000.0,
+      "next_season_investment": 0
+    }
+  },
+  "carry_over": true
+}

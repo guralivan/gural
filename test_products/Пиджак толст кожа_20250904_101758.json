@@ -1,0 +1,19 @@
+{
+  "product_name": "Пиджак толст кожа",
+  "product_type": "Тест",
+  "cost_price": 1660.0,
+  "retail_price": 10000.0,
+  "discount_percent": 20.0,
+  "commission_rate": 31.0,
+  "logistics_cost": 160.0,
+  "advertising_percent": 3.0,
+  "buyout_percent": 25.0,
+  "storage_cost": 20.0,
+  "purchased_quantity": 100,
+  "stock_quantity": 100,
+  "spp_discount": 20.0,
+  "timestamp": "2025-09-04T10:17:58.171836",
+  "created_date": "2025-09-04 10:17:58",
+  "filename": "Пиджак толст кожа_20250904_101758.json",
+  "updated_date": "2025-09-15 09:49:43"
+}
