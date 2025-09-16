@@ -33,24 +33,71 @@ def load_cache_data(filename):
     return None
 
 def save_settings_to_cache():
-    """Сохраняет настройки рекламы и планов в кеш"""
+    """Сохраняет настройки рекламы, планов и рентабельности в кеш"""
     settings = {
         'reklama_values': st.session_state.get('reklama_values', {}),
         'orders_plan_values': st.session_state.get('orders_plan_values', {}),
         'sales_plan_values': st.session_state.get('sales_plan_values', {}),
+        'rentabelnost_fact_values': st.session_state.get('rentabelnost_fact_values', {}),
+        'rentabelnost_plan_values': st.session_state.get('rentabelnost_plan_values', {}),
         'timestamp': datetime.now().isoformat()
     }
     save_cache_data(settings, 'settings_cache.pkl')
 
 def load_settings_from_cache():
-    """Загружает настройки рекламы и планов из кеша"""
+    """Загружает настройки рекламы, планов и рентабельности из кеша"""
     settings = load_cache_data('settings_cache.pkl')
     if settings:
         st.session_state.reklama_values = settings.get('reklama_values', {})
         st.session_state.orders_plan_values = settings.get('orders_plan_values', {})
         st.session_state.sales_plan_values = settings.get('sales_plan_values', {})
+        st.session_state.rentabelnost_fact_values = settings.get('rentabelnost_fact_values', {})
+        st.session_state.rentabelnost_plan_values = settings.get('rentabelnost_plan_values', {})
         return True
     return False
+
+def save_table_structure_to_cache(pivot_data, final_columns):
+    """Сохраняет структуру таблицы и порядок столбцов в кеш"""
+    try:
+        table_structure = {
+            'columns_order': final_columns,
+            'data_hash': hash(str(pivot_data.values.tobytes())),
+            'timestamp': datetime.now().isoformat()
+        }
+        save_cache_data(table_structure, 'table_structure_cache.pkl')
+    except Exception as e:
+        st.error(f"Ошибка сохранения структуры таблицы: {e}")
+
+def load_table_structure_from_cache():
+    """Загружает структуру таблицы и порядок столбцов из кеша"""
+    try:
+        structure = load_cache_data('table_structure_cache.pkl')
+        if structure:
+            return structure.get('columns_order', None)
+    except Exception as e:
+        st.error(f"Ошибка загрузки структуры таблицы: {e}")
+    return None
+
+def save_data_to_cache(df, filename='data_cache.pkl'):
+    """Сохраняет основные данные в кеш"""
+    try:
+        cache_data = {
+            'dataframe': df,
+            'timestamp': datetime.now().isoformat()
+        }
+        save_cache_data(cache_data, filename)
+    except Exception as e:
+        st.error(f"Ошибка сохранения данных: {e}")
+
+def load_data_from_cache(filename='data_cache.pkl'):
+    """Загружает основные данные из кеша"""
+    try:
+        cache_data = load_cache_data(filename)
+        if cache_data:
+            return cache_data.get('dataframe', None)
+    except Exception as e:
+        st.error(f"Ошибка загрузки данных: {e}")
+    return None
 
 def load_additional_data(uploaded_file):
     """Загружает дополнительные данные из загруженного файла"""
@@ -163,18 +210,82 @@ uploaded_file = st.sidebar.file_uploader(
     help="Файл будет объединен с основными данными (не заменяя их)"
 )
 
-# Загружаем основные данные
+# Загружаем основные данные с кешированием
 df = load_voronka_data()
+
+# Если данные загружены, сохраняем их в кеш
+if df is not None:
+    save_data_to_cache(df)
 
 # Если загружен дополнительный файл, объединяем данные
 if uploaded_file is not None and df is not None:
     additional_df = load_additional_data(uploaded_file)
     if additional_df is not None:
         df = merge_dataframes(df, additional_df)
+        # Сохраняем обновленные данные в кеш
+        save_data_to_cache(df)
         st.sidebar.success(f"✅ Файл {uploaded_file.name} успешно объединен с основными данными!")
         st.sidebar.info(f"📊 Общее количество строк: {len(df)}")
 elif uploaded_file is not None and df is None:
     st.sidebar.error("❌ Сначала загрузите основной файл Voronka.xlsx")
+
+# Управление кешем в сайдбаре
+st.sidebar.header("🗂️ Управление кешем")
+col1, col2 = st.sidebar.columns(2)
+with col1:
+    if st.button("💾 Сохранить данные", help="Сохраняет текущие данные в кеш"):
+        if df is not None:
+            save_data_to_cache(df)
+            st.sidebar.success("Данные сохранены!")
+        else:
+            st.sidebar.warning("Нет данных для сохранения")
+with col2:
+    if st.button("🔄 Загрузить данные", help="Загружает данные из кеша"):
+        cached_df = load_data_from_cache()
+        if cached_df is not None:
+            st.sidebar.success("Данные загружены!")
+            st.rerun()
+        else:
+            st.sidebar.warning("Кеш не найден")
+
+if st.sidebar.button("🗑️ Очистить весь кеш", help="Удаляет все файлы кеша"):
+    cache_files = ['settings_cache.pkl', 'table_structure_cache.pkl', 'data_cache.pkl']
+    for cache_file in cache_files:
+        if os.path.exists(cache_file):
+            os.remove(cache_file)
+    st.sidebar.success("Весь кеш очищен!")
+
+# Настройки таблицы
+st.sidebar.header("⚙️ Настройки таблицы")
+
+# Инициализируем session state для настроек таблицы
+if 'table_settings' not in st.session_state:
+    st.session_state.table_settings = {
+        'start_week': 1,
+        'weeks_to_show': 12
+    }
+
+# Настройка начальной недели
+start_week = st.sidebar.number_input(
+    "Начальная неделя:",
+    min_value=1,
+    max_value=52,
+    value=st.session_state.table_settings['start_week'],
+    help="С какой недели начинать отображение таблицы"
+)
+
+weeks_to_show = st.sidebar.number_input(
+    "Количество недель:",
+    min_value=1,
+    max_value=52,
+    value=st.session_state.table_settings['weeks_to_show'],
+    help="Сколько недель показывать в таблице"
+)
+
+# Обновляем настройки
+if start_week != st.session_state.table_settings['start_week'] or weeks_to_show != st.session_state.table_settings['weeks_to_show']:
+    st.session_state.table_settings['start_week'] = start_week
+    st.session_state.table_settings['weeks_to_show'] = weeks_to_show
 
 if df is not None:
     # Ищем столбцы с заказами и выкупами
@@ -362,69 +473,118 @@ if df is not None:
         # Создаем итоговую таблицу, начиная с недельных данных
         pivot_data = weekly_pivot_data.copy()
         
-        # Добавляем месячные столбцы с правильными значениями
-        for col in monthly_pivot_data.columns:
-            pivot_data[col] = monthly_pivot_data[col]
-            
-            # Для строк "Реклама", "Заказ план", "Продажа план" - рассчитываем сумму по неделям
-            month_weeks = [c for c in pivot_data.columns if c.startswith(col + ' (')]
-            
-            # Реклама - сумма по неделям
-            if "Реклама" in pivot_data.index:
-                reklama_total = sum(st.session_state.get('reklama_values', {}).get(week, 0.0) for week in month_weeks)
-                pivot_data.loc["Реклама", col] = reklama_total
-            
-            # Заказ план - сумма по неделям
-            if "Заказ план" in pivot_data.index:
-                orders_plan_total = sum(st.session_state.get('orders_plan_values', {}).get(week, 0.0) for week in month_weeks)
-                pivot_data.loc["Заказ план", col] = orders_plan_total
-            
-            # Продажа план - сумма по неделям
-            if "Продажа план" in pivot_data.index:
-                sales_plan_total = sum(st.session_state.get('sales_plan_values', {}).get(week, 0.0) for week in month_weeks)
-                pivot_data.loc["Продажа план", col] = sales_plan_total
-        
         # Добавляем столбец "Общие по месяцам"
         pivot_data["Общие по месяцам"] = 0.0
         
-        # Создаем правильный порядок столбцов: месячный столбец перед недельными того же месяца
-        final_columns = []
-        
-        # Получаем уникальные месяцы из недельных данных
-        weekly_months = set()
-        for col in weekly_pivot_data.columns:
-            if '(' in col and 'нед.' in col:
-                # Извлекаем месяц из формата "2024.01 (нед. 01)"
-                month_part = col.split(' (')[0]  # "2024.01"
-                weekly_months.add(month_part)
-        
-        # Добавляем месяцы из monthly_pivot_data, которых может не быть в недельных данных
+        # Добавляем месячные столбцы в pivot_data
         for col in monthly_pivot_data.columns:
-            if col not in weekly_months:
-                weekly_months.add(col)
+            if col not in pivot_data.columns:
+                pivot_data[col] = monthly_pivot_data[col]
+            else:
+                # Если столбец уже существует, обновляем его значения
+                pivot_data[col] = monthly_pivot_data[col]
         
-        # Сортируем месяцы по убыванию
-        sorted_months = sorted(weekly_months, key=lambda x: (int(x.split('.')[0]), int(x.split('.')[1])), reverse=True)
-        
-        # Создаем правильный порядок столбцов: недели месяца, затем месячный столбец
-        for month in sorted_months:
-            # Добавляем недельные столбцы этого месяца
-            month_weeks = [col for col in pivot_data.columns if col.startswith(month + ' (')]
-            # Сортируем недели по убыванию
-            month_weeks.sort(key=lambda x: int(x.split('нед. ')[1].split(')')[0]), reverse=True)
-            final_columns.extend(month_weeks)
+        # Проверяем кеш для порядка столбцов
+        cached_columns = load_table_structure_from_cache()
+
+        # Используем кешированный порядок столбцов или создаем новый
+        if cached_columns and all(col in pivot_data.columns for col in cached_columns):
+            # Проверяем, есть ли в кеше месячные столбцы
+            monthly_cols_in_cache = [col for col in cached_columns if col.startswith(("2024.", "2023.", "2022.", "2025.")) and '(' not in col]
+            monthly_cols_in_data = [col for col in pivot_data.columns if col.startswith(("2024.", "2023.", "2022.", "2025.")) and '(' not in col]
             
-            # Добавляем месячный столбец после недель
-            if month in pivot_data.columns:
-                final_columns.append(month)
+            if len(monthly_cols_in_cache) == len(monthly_cols_in_data):
+                # Используем кешированный порядок
+                final_columns = [col for col in cached_columns if col in pivot_data.columns]
+                # Добавляем новые столбцы, которых не было в кеше
+                for col in pivot_data.columns:
+                    if col not in final_columns:
+                        final_columns.append(col)
+            else:
+                cached_columns = None  # Принудительно создаем новый порядок
         
-        # Добавляем столбец "Общие по месяцам" в конец
-        final_columns.append("Общие по месяцам")
+        if not cached_columns or not all(col in pivot_data.columns for col in cached_columns):
+            # Создаем новый порядок столбцов
+            final_columns = []
+            
+            # Получаем уникальные месяцы из недельных данных
+            weekly_months = set()
+            for col in weekly_pivot_data.columns:
+                if '(' in col and 'нед.' in col:
+                    # Извлекаем месяц из формата "2024.01 (нед. 01)" или "2025.9 (нед. 38)"
+                    month_part = col.split(' (')[0]  # "2024.01" или "2025.9"
+                    # Унифицируем формат: добавляем ведущий ноль если нужно
+                    year, month = month_part.split('.')
+                    month_normalized = f"{year}.{month.zfill(2)}"
+                    weekly_months.add(month_normalized)
+            
+            # Добавляем месяцы из monthly_pivot_data, которых может не быть в недельных данных
+            for col in monthly_pivot_data.columns:
+                # Унифицируем формат и для месячных столбцов
+                year, month = col.split('.')
+                month_normalized = f"{year}.{month.zfill(2)}"
+                weekly_months.add(month_normalized)
+            
+            # Сортируем месяцы по убыванию (сначала год, потом месяц)
+            sorted_months = sorted(weekly_months, key=lambda x: (int(x.split('.')[0]), int(x.split('.')[1])), reverse=True)
+            
+            # Создаем правильный порядок столбцов: недели месяца, затем месячный столбец
+            for month in sorted_months:
+                # Добавляем недельные столбцы этого месяца
+                month_weeks = []
+                for col in pivot_data.columns:
+                    if '(' in col and 'нед.' in col:
+                        col_month_part = col.split(' (')[0]
+                        # Унифицируем формат для сравнения
+                        col_year, col_month = col_month_part.split('.')
+                        col_month_normalized = f"{col_year}.{col_month.zfill(2)}"
+                        if col_month_normalized == month:
+                            month_weeks.append(col)
+                
+                # Сортируем недели по убыванию
+                month_weeks.sort(key=lambda x: int(x.split('нед. ')[1].split(')')[0]), reverse=True)
+                final_columns.extend(month_weeks)
+                
+                # Добавляем месячный столбец после недель этого месяца
+                monthly_col = None
+                for col in pivot_data.columns:
+                    # Проверяем только месячные столбцы (содержат год.месяц без скобок)
+                    if '(' not in col and '.' in col and col.startswith(("2024.", "2023.", "2022.", "2025.")) and col not in month_weeks:
+                        col_year, col_month = col.split('.')
+                        col_month_normalized = f"{col_year}.{col_month.zfill(2)}"
+                        if col_month_normalized == month:
+                            monthly_col = col
+                            break
+                
+                if monthly_col:
+                    final_columns.append(monthly_col)
+            
+            # Добавляем месячные столбцы, которые могли быть пропущены (если нет недельных данных)
+            for month in sorted_months:
+                # Ищем месячный столбец в разных форматах
+                monthly_col = None
+                for col in pivot_data.columns:
+                    if '(' not in col and '.' in col and col.startswith(("2024.", "2023.", "2022.", "2025.")):
+                        col_year, col_month = col.split('.')
+                        col_month_normalized = f"{col_year}.{col_month.zfill(2)}"
+                        if col_month_normalized == month and col not in final_columns:
+                            monthly_col = col
+                            break
+                
+                if monthly_col:
+                    final_columns.append(monthly_col)
+            
+            # Добавляем столбец "Общие по месяцам" в конец
+            final_columns.append("Общие по месяцам")
+            
+            # Убеждаемся, что все столбцы из pivot_data включены в final_columns
+            # Но только те, которые не являются месячными (они уже добавлены в правильном порядке)
+            for col in pivot_data.columns:
+                if col not in final_columns and not (col.startswith(("2024.", "2023.", "2022.", "2025.")) and '(' not in col):
+                    final_columns.append(col)
         
-        # Убеждаемся, что все столбцы из pivot_data включены в final_columns
-        for col in pivot_data.columns:
-            if col not in final_columns:
-                final_columns.append(col)
+        # Сохраняем структуру таблицы в кеш
+        save_table_structure_to_cache(pivot_data, final_columns)
         
         # Переупорядочиваем DataFrame
         pivot_data = pivot_data[final_columns]
@@ -472,7 +632,7 @@ if df is not None:
         #     index_names.append("Отменили, шт")
         
         # Добавляем названия для новых строк
-        index_names.extend(["Средняя цена", "Реклама", "ДРР", "Заказ план", "Продажа план"])
+        index_names.extend(["Средняя цена", "Реклама", "ДРР", "Заказ план", "Продажа план", "Рентабельность факт", "Рентабельность план"])
         
         # Месячные данные уже добавлены в правильном порядке выше
         
@@ -493,6 +653,10 @@ if df is not None:
             st.session_state.orders_plan_values = {week: 0.0 for week in week_columns}
         if 'sales_plan_values' not in st.session_state:
             st.session_state.sales_plan_values = {week: 0.0 for week in week_columns}
+        if 'rentabelnost_fact_values' not in st.session_state:
+            st.session_state.rentabelnost_fact_values = {week: 0.0 for week in week_columns}
+        if 'rentabelnost_plan_values' not in st.session_state:
+            st.session_state.rentabelnost_plan_values = {week: 0.0 for week in week_columns}
         
         # Создаем строки в правильном порядке согласно index_names
         for idx_name in index_names:
@@ -507,15 +671,53 @@ if df is not None:
                     if col == "Общие по месяцам":
                         values.append(0.0)  # Будет рассчитано позже
                     elif col.startswith(("2024.", "2023.", "2022.", "2025.")) and '(' not in col:
-                        # Месячные столбцы уже рассчитаны выше
-                        values.append(0.0)  # Будет перезаписано позже
+                        # Месячные столбцы - рассчитываем сумму по неделям
+                        month_weeks = [c for c in pivot_data.columns if c.startswith(col + ' (')]
+                        reklama_total = sum(st.session_state.get('reklama_values', {}).get(week, 0.0) for week in month_weeks)
+                        values.append(reklama_total)
                     else:
                         values.append(st.session_state.reklama_values.get(col, 0.0))
                 row = pd.Series(values, index=pivot_data.columns)
                 row.name = "Реклама"
                 additional_rows.append(row.to_frame().T)
             elif idx_name == "ДРР":
-                row = pd.Series([0.0] * len(pivot_data.columns), index=pivot_data.columns)
+                # Рассчитываем ДРР для всех столбцов
+                values = []
+                for col in pivot_data.columns:
+                    if col == "Общие по месяцам":
+                        values.append(0.0)  # Будет рассчитано позже
+                    elif col.startswith(("2024.", "2023.", "2022.", "2025.")) and '(' not in col:
+                        # Месячные столбцы - среднее ДРР по неделям этого месяца
+                        month_weeks = [c for c in pivot_data.columns if c.startswith(col + ' (')]
+                        drr_values = []
+                        for week_col in month_weeks:
+                            reklama_value = st.session_state.get('reklama_values', {}).get(week_col, 0.0)
+                            if orders_sum_col:
+                                orders_sum_col_clean = clean_column_name(orders_sum_col)
+                                if orders_sum_col_clean in pivot_data.index:
+                                    week_orders_sum = pivot_data.loc[orders_sum_col_clean, week_col]
+                                    if pd.notna(week_orders_sum) and week_orders_sum > 0 and reklama_value > 0:
+                                        drr_values.append(reklama_value / week_orders_sum)
+                        if drr_values:
+                            values.append(sum(drr_values) / len(drr_values))
+                        else:
+                            values.append(0.0)
+                    else:
+                        # Недельные столбцы
+                        reklama_value = st.session_state.get('reklama_values', {}).get(col, 0.0)
+                        if orders_sum_col:
+                            orders_sum_col_clean = clean_column_name(orders_sum_col)
+                            if orders_sum_col_clean in pivot_data.index:
+                                orders_sum_value = pivot_data.loc[orders_sum_col_clean, col]
+                                if pd.notna(orders_sum_value) and orders_sum_value > 0 and reklama_value > 0:
+                                    values.append(reklama_value / orders_sum_value)
+                                else:
+                                    values.append(0.0)
+                            else:
+                                values.append(0.0)
+                        else:
+                            values.append(0.0)
+                row = pd.Series(values, index=pivot_data.columns)
                 row.name = "ДРР"
                 additional_rows.append(row.to_frame().T)
             elif idx_name == "Заказ план":
@@ -525,8 +727,10 @@ if df is not None:
                     if col == "Общие по месяцам":
                         values.append(0.0)  # Будет рассчитано позже
                     elif col.startswith(("2024.", "2023.", "2022.", "2025.")) and '(' not in col:
-                        # Месячные столбцы уже рассчитаны выше
-                        values.append(0.0)  # Будет перезаписано позже
+                        # Месячные столбцы - рассчитываем сумму по неделям
+                        month_weeks = [c for c in pivot_data.columns if c.startswith(col + ' (')]
+                        orders_plan_total = sum(st.session_state.get('orders_plan_values', {}).get(week, 0.0) for week in month_weeks)
+                        values.append(orders_plan_total)
                     else:
                         values.append(st.session_state.orders_plan_values.get(col, 0.0))
                 row = pd.Series(values, index=pivot_data.columns)
@@ -539,12 +743,54 @@ if df is not None:
                     if col == "Общие по месяцам":
                         values.append(0.0)  # Будет рассчитано позже
                     elif col.startswith(("2024.", "2023.", "2022.", "2025.")) and '(' not in col:
-                        # Месячные столбцы уже рассчитаны выше
-                        values.append(0.0)  # Будет перезаписано позже
+                        # Месячные столбцы - рассчитываем сумму по неделям
+                        month_weeks = [c for c in pivot_data.columns if c.startswith(col + ' (')]
+                        sales_plan_total = sum(st.session_state.get('sales_plan_values', {}).get(week, 0.0) for week in month_weeks)
+                        values.append(sales_plan_total)
                     else:
                         values.append(st.session_state.sales_plan_values.get(col, 0.0))
                 row = pd.Series(values, index=pivot_data.columns)
                 row.name = "Продажа план"
+                additional_rows.append(row.to_frame().T)
+            elif idx_name == "Рентабельность факт":
+                # Загружаем значения из session state
+                values = []
+                for col in pivot_data.columns:
+                    if col == "Общие по месяцам":
+                        values.append(0.0)  # Будет рассчитано позже
+                    elif col.startswith(("2024.", "2023.", "2022.", "2025.")) and '(' not in col:
+                        # Месячные столбцы - рассчитываем среднее по неделям
+                        month_weeks = [c for c in pivot_data.columns if c.startswith(col + ' (')]
+                        rentabelnost_fact_total = sum(st.session_state.get('rentabelnost_fact_values', {}).get(week, 0.0) for week in month_weeks)
+                        if len(month_weeks) > 0:
+                            rentabelnost_fact_avg = rentabelnost_fact_total / len(month_weeks)
+                        else:
+                            rentabelnost_fact_avg = 0.0
+                        values.append(rentabelnost_fact_avg)
+                    else:
+                        values.append(st.session_state.rentabelnost_fact_values.get(col, 0.0))
+                row = pd.Series(values, index=pivot_data.columns)
+                row.name = "Рентабельность факт"
+                additional_rows.append(row.to_frame().T)
+            elif idx_name == "Рентабельность план":
+                # Загружаем значения из session state
+                values = []
+                for col in pivot_data.columns:
+                    if col == "Общие по месяцам":
+                        values.append(0.0)  # Будет рассчитано позже
+                    elif col.startswith(("2024.", "2023.", "2022.", "2025.")) and '(' not in col:
+                        # Месячные столбцы - рассчитываем среднее по неделям
+                        month_weeks = [c for c in pivot_data.columns if c.startswith(col + ' (')]
+                        rentabelnost_plan_total = sum(st.session_state.get('rentabelnost_plan_values', {}).get(week, 0.0) for week in month_weeks)
+                        if len(month_weeks) > 0:
+                            rentabelnost_plan_avg = rentabelnost_plan_total / len(month_weeks)
+                        else:
+                            rentabelnost_plan_avg = 0.0
+                        values.append(rentabelnost_plan_avg)
+                    else:
+                        values.append(st.session_state.rentabelnost_plan_values.get(col, 0.0))
+                row = pd.Series(values, index=pivot_data.columns)
+                row.name = "Рентабельность план"
                 additional_rows.append(row.to_frame().T)
         
         # Добавляем строки в таблицу в правильном порядке
@@ -557,7 +803,18 @@ if df is not None:
         # Перезаписываем месячные значения для строк "Реклама", "Заказ план", "Продажа план"
         for col in pivot_data.columns:
             if col.startswith(("2024.", "2023.", "2022.", "2025.")) and '(' not in col:
-                month_weeks = [c for c in pivot_data.columns if c.startswith(col + ' (')]
+                # Ищем недели для этого месяца, учитывая разные форматы (2025.09 и 2025.9)
+                month_weeks = []
+                for week_col in pivot_data.columns:
+                    if '(' in week_col and 'нед.' in week_col:
+                        # Извлекаем год и месяц из недели (например, "2025.9" из "2025.9 (нед. 38)")
+                        week_year_month = week_col.split(' (')[0]
+                        # Нормализуем формат месяца (2025.9 -> 2025.09)
+                        if '.' in week_year_month:
+                            year, month = week_year_month.split('.')
+                            normalized_week_month = f"{year}.{month.zfill(2)}"
+                            if normalized_week_month == col:
+                                month_weeks.append(week_col)
                 
                 # Реклама - сумма по неделям
                 if "Реклама" in pivot_data.index:
@@ -573,6 +830,39 @@ if df is not None:
                 if "Продажа план" in pivot_data.index:
                     sales_plan_total = sum(st.session_state.get('sales_plan_values', {}).get(week, 0.0) for week in month_weeks)
                     pivot_data.loc["Продажа план", col] = sales_plan_total
+                
+                # Рентабельность факт - среднее по неделям
+                if "Рентабельность факт" in pivot_data.index:
+                    rentabelnost_fact_total = sum(st.session_state.get('rentabelnost_fact_values', {}).get(week, 0.0) for week in month_weeks)
+                    if len(month_weeks) > 0:
+                        rentabelnost_fact_avg = rentabelnost_fact_total / len(month_weeks)
+                    else:
+                        rentabelnost_fact_avg = 0.0
+                    pivot_data.loc["Рентабельность факт", col] = rentabelnost_fact_avg
+                
+                # Рентабельность план - среднее по неделям
+                if "Рентабельность план" in pivot_data.index:
+                    rentabelnost_plan_total = sum(st.session_state.get('rentabelnost_plan_values', {}).get(week, 0.0) for week in month_weeks)
+                    if len(month_weeks) > 0:
+                        rentabelnost_plan_avg = rentabelnost_plan_total / len(month_weeks)
+                    else:
+                        rentabelnost_plan_avg = 0.0
+                    pivot_data.loc["Рентабельность план", col] = rentabelnost_plan_avg
+                
+                # ДРР - среднее по неделям этого месяца
+                if "ДРР" in pivot_data.index and orders_sum_col:
+                    orders_sum_col_clean = clean_column_name(orders_sum_col)
+                    if orders_sum_col_clean in pivot_data.index:
+                        drr_values = []
+                        for week_col in month_weeks:
+                            reklama_value = st.session_state.get('reklama_values', {}).get(week_col, 0.0)
+                            week_orders_sum = pivot_data.loc[orders_sum_col_clean, week_col]
+                            if pd.notna(week_orders_sum) and week_orders_sum > 0 and reklama_value > 0:
+                                drr_values.append(reklama_value / week_orders_sum)
+                        if drr_values:
+                            pivot_data.loc["ДРР", col] = sum(drr_values) / len(drr_values)
+                        else:
+                            pivot_data.loc["ДРР", col] = 0.0
         
         # Рассчитываем среднюю цену: Заказали на сумму / Заказали шт
         if orders_col and orders_sum_col:
@@ -589,36 +879,7 @@ if df is not None:
                     except:
                         pivot_data.loc["Средняя цена", col] = 0
         
-        # Рассчитываем ДРР: Реклама / Заказали на сумму
-        if orders_sum_col:
-            orders_sum_col_clean = clean_column_name(orders_sum_col)
-            if orders_sum_col_clean in pivot_data.index:
-                for col in pivot_data.columns:
-                    try:
-                        orders_sum_value = pivot_data.loc[orders_sum_col_clean, col]
-                        # Для недельных столбцов используем session state, для месячных - среднее
-                        if col.startswith(("2024.", "2023.", "2022.", "2025.")) and '(' not in col:
-                            # Месячные столбцы - среднее ДРР по неделям этого месяца
-                            month_weeks = [c for c in pivot_data.columns if c.startswith(col + ' (')]
-                            drr_values = []
-                            for week_col in month_weeks:
-                                reklama_value = st.session_state.reklama_values.get(week_col, 0.0)
-                                week_orders_sum = pivot_data.loc[orders_sum_col_clean, week_col]
-                                if pd.notna(week_orders_sum) and week_orders_sum > 0 and reklama_value > 0:
-                                    drr_values.append(reklama_value / week_orders_sum)
-                            if drr_values:
-                                pivot_data.loc["ДРР", col] = sum(drr_values) / len(drr_values)
-                            else:
-                                pivot_data.loc["ДРР", col] = 0.0
-                        else:
-                            # Недельные столбцы
-                            reklama_value = st.session_state.reklama_values.get(col, 0.0)
-                            if pd.notna(orders_sum_value) and orders_sum_value > 0 and reklama_value > 0:
-                                pivot_data.loc["ДРР", col] = reklama_value / orders_sum_value
-                            else:
-                                pivot_data.loc["ДРР", col] = 0.0
-                    except:
-                        pivot_data.loc["ДРР", col] = 0.0
+        # ДРР уже рассчитан выше при создании строки
         
         # Рассчитываем общие значения по месяцам для каждой строки
         for idx in pivot_data.index:
@@ -650,7 +911,7 @@ if df is not None:
                         if pd.notna(val):
                             total += val
                 pivot_data.loc[idx, "Общие по месяцам"] = total
-            elif idx in ["Средняя цена", "Процент выкупа", "Конверсия в корзину, %", "Конверсия в заказ, %"]:
+            elif idx in ["Средняя цена", "Процент выкупа", "Конверсия в корзину, %", "Конверсия в заказ, %", "Рентабельность факт", "Рентабельность план"]:
                 # Для процентных показателей - среднее арифметическое по месяцам
                 values = []
                 for col in monthly_pivot_data.columns:
@@ -852,6 +1113,7 @@ if df is not None:
             save_settings_to_cache()  # Автоматически сохраняем в кеш
             st.rerun()
         
+        
         # Кнопки для сохранения и загрузки настроек
         col1, col2 = st.columns(2)
         with col1:
@@ -865,6 +1127,7 @@ if df is not None:
                     st.rerun()
                 else:
                     st.warning("Кеш не найден или пуст")
+        
         
         # Session state для планов уже инициализирован выше
         
@@ -911,6 +1174,54 @@ if df is not None:
             
         if sales_plan_value != current_sales_plan:
             st.session_state.sales_plan_values[selected_plan_week] = sales_plan_value
+            save_settings_to_cache()  # Автоматически сохраняем в кеш
+            st.rerun()
+        
+        # Добавляем интерфейс для настройки рентабельности
+        st.subheader("📊 Настройка рентабельности по неделям")
+        
+        # Выпадающий список для выбора недели (текущая неделя по умолчанию)
+        selected_rent_week = st.selectbox(
+            "Выберите неделю для настройки рентабельности:",
+            options=list(pivot_data.columns),
+            index=0,
+            help="Выберите неделю для ввода рентабельности",
+            key="rent_week_selector"
+        )
+        
+        # Создаем колонки для ввода рентабельности
+        col3, col4 = st.columns(2)
+        
+        with col3:
+            current_rent_fact = st.session_state.rentabelnost_fact_values.get(selected_rent_week, 0.0)
+            rent_fact_value = st.number_input(
+                f"Рентабельность факт для {selected_rent_week} (%):",
+                min_value=0.0,
+                max_value=100.0,
+                value=current_rent_fact,
+                step=0.1,
+                help="Фактическая рентабельность для выбранной недели в процентах"
+            )
+        
+        with col4:
+            current_rent_plan = st.session_state.rentabelnost_plan_values.get(selected_rent_week, 0.0)
+            rent_plan_value = st.number_input(
+                f"Рентабельность план для {selected_rent_week} (%):",
+                min_value=0.0,
+                max_value=100.0,
+                value=current_rent_plan,
+                step=0.1,
+                help="Плановая рентабельность для выбранной недели в процентах"
+            )
+        
+        # Обновляем session state при изменении значений рентабельности
+        if rent_fact_value != current_rent_fact:
+            st.session_state.rentabelnost_fact_values[selected_rent_week] = rent_fact_value
+            save_settings_to_cache()  # Автоматически сохраняем в кеш
+            st.rerun()
+            
+        if rent_plan_value != current_rent_plan:
+            st.session_state.rentabelnost_plan_values[selected_rent_week] = rent_plan_value
             save_settings_to_cache()  # Автоматически сохраняем в кеш
             st.rerun()
         
