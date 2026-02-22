@@ -45,3 +45,12 @@ streamlit run weekly_expenses_analyzer_final_stable.py --server.port 8501 --serv
 
 
 
+
+
+
+
+
+
+
+
+

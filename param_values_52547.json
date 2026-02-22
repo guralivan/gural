@@ -1,0 +1,11 @@
+{
+  "file_name": "report1.xlsx",
+  "param_values": {
+    "Цвет": {
+      "12345": "Красный",
+      "67890": "Синий"
+    }
+  },
+  "timestamp": "2024-01-01 12:00:00",
+  "param_options": {}
+}

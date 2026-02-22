@@ -1,0 +1,16 @@
+{
+  "file_name": "Миндальная мука 16 сентября 2024 - 2025.xlsx",
+  "settings": {
+    "search": "",
+    "spp": 25,
+    "buyout_pct": 95,
+    "revenue_min": 2000000,
+    "revenue_max": 1000000000,
+    "price_min": 0,
+    "price_max": 10000,
+    "show_images": false,
+    "sort_column": "Выручка",
+    "sort_descending": true
+  },
+  "timestamp": "2026-01-15 17:34:17"
+}

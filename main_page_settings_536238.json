@@ -1,0 +1,16 @@
+{
+  "file_name": "Спортивная майка мужская с 1 января по 16 сентября.xlsx",
+  "settings": {
+    "search": "",
+    "spp": 30,
+    "buyout_pct": 55,
+    "revenue_min": 500000,
+    "revenue_max": 100000000,
+    "price_min": 1500,
+    "price_max": 3000,
+    "show_images": false,
+    "sort_column": "Выручка",
+    "sort_descending": true
+  },
+  "timestamp": "2025-10-29 23:19:49"
+}

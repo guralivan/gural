@@ -1,10 +1,10 @@
 {
   "search": "",
   "spp": 25,
-  "buyout_pct": 25,
+  "buyout_pct": 100,
   "revenue_min": 1000000,
   "revenue_max": 44199425,
-  "price_min": 7000,
+  "price_min": 1200,
   "price_max": 18450,
   "show_images": false,
   "sort_column": "Выручка",

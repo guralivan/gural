@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jasmu.ru — Премиальная параметрическая мебель</title>
+    <meta
+      name="description"
+      content="Jasmu.ru — премиальная параметрическая мебель из натурального дерева. Авторские кресла, индивидуальные размеры, производство в Москве."
+    />
+    <meta
+      name="keywords"
+      content="Jasmu, премиальная мебель, параметрическая мебель, авторские кресла, мебель из дерева, Москва"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="nav">
+        <div class="logo">jasmu</div>
+        <div class="nav-links">
+          <a href="#collection">Каталог</a>
+          <a href="#gallery">Галерея</a>
+          <a href="#contact">Контакты</a>
+        </div>
+        <a class="nav-cta" href="tel:+74991135586">Заказать консультацию</a>
+      </nav>
+      <div class="hero-content">
+        <p class="eyebrow">Премиальная мебель</p>
+        <h1>
+          Лаконичная форма.
+          <br />
+          Тёплое дерево.
+          <br />
+          Идеальная посадка.
+        </h1>
+        <p class="lead">
+          Коллекция авторских кресел, созданных
+          <br />
+          для безупречного комфорта и эстетики.
+        </p>
+        <div class="hero-actions">
+          <button class="primary" id="openLeadForm">Оставить заявку</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="collection">
+        <div class="section-header">
+          <h2>Каталог кресел</h2>
+          <p>Сейчас в каталоге один продукт. Скоро добавим новые модели.</p>
+        </div>
+        <div class="catalog">
+          <div class="catalog-card is-clickable" id="mainProductCard">
+            <div class="catalog-media"></div>
+            <div class="catalog-body">
+              <h3>JASMU Flow One</h3>
+              <p>Скульптурное кресло из ламелей с мягкой посадкой.</p>
+              <div class="catalog-meta">
+                <span>Натуральный шпон</span>
+                <span>Под заказ 12 дней</span>
+              </div>
+            </div>
+            <div class="catalog-price">37.000 ₽</div>
+          </div>
+          <div class="catalog-card coming-soon">
+            <div class="catalog-media placeholder"></div>
+            <div class="catalog-body">
+              <h3>JASMU Arc</h3>
+              <p>Лёгкий силуэт и воздушная спинка.</p>
+            </div>
+            <div class="catalog-price">— ₽</div>
+            <div class="soon-badge">Скоро</div>
+          </div>
+          <div class="catalog-card coming-soon">
+            <div class="catalog-media placeholder"></div>
+            <div class="catalog-body">
+              <h3>JASMU Line</h3>
+              <p>Лаконичная геометрия и мягкая поддержка.</p>
+            </div>
+            <div class="catalog-price">— ₽</div>
+            <div class="soon-badge">Скоро</div>
+          </div>
+          <div class="catalog-card coming-soon">
+            <div class="catalog-media placeholder"></div>
+            <div class="catalog-body">
+              <h3>JASMU Wave</h3>
+              <p>Плавный изгиб, созданный для отдыха.</p>
+            </div>
+            <div class="catalog-price">— ₽</div>
+            <div class="soon-badge">Скоро</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section gallery" id="gallery">
+        <div class="section-header">
+          <h2>Галерея</h2>
+          <p>Вдохновляйтесь светом, тенью и текстурой натурального дерева.</p>
+        </div>
+        <div class="gallery-grid">
+          <img
+            src="./assets/gallery-1.jpg"
+            alt="Кресло из ламелей в тёплом свете"
+            loading="lazy"
+          />
+          <img
+            src="./assets/gallery-2.jpg"
+            alt="Скульптурное кресло, боковой ракурс"
+            loading="lazy"
+          />
+          <img
+            src="./assets/gallery-3.jpg"
+            alt="Крупный план ламелей"
+            loading="lazy"
+          />
+          <img
+            src="./assets/gallery-4.jpg"
+            alt="Кресло в мягком вечернем освещении"
+            loading="lazy"
+          />
+          <img
+            src="./assets/gallery-5.jpg"
+            alt="Светлый интерьер с креслом"
+            loading="lazy"
+          />
+          <img
+            src="./assets/gallery-6.jpg"
+            alt="Лёгкая конструкция и изгибы"
+            loading="lazy"
+          />
+        </div>
+      </section>
+
+
+      <section class="section quote">
+        <div class="quote-card">
+          <p>
+            «Минимализм — это не про пустоту, а про фокус. Мы убрали всё лишнее,
+            оставив только форму, свет и комфорт».
+          </p>
+          <span>Арт-директор jasmu</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="contact">
+      <div class="footer-content">
+        <div>
+          <h4>Наше производство</h4>
+          <p>Россия, 141021, Мытищи, Юбилейная, д. 42 корп. 2 стр. 1</p>
+        </div>
+        <div>
+          <h4>Связаться</h4>
+          <p>+7 (499) 113 55 86</p>
+          <p>guralivan@gmail.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 jasmu. Все права защищены.</div>
+    </footer>
+
+    <div class="modal" id="leadModal" aria-hidden="true">
+      <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="leadTitle">
+        <button class="modal-close" type="button" id="closeLeadForm" aria-label="Закрыть">×</button>
+        <h3 id="leadTitle">Оставить заявку</h3>
+        <form class="lead-form" action="#" method="post">
+          <label>
+            Имя
+            <input type="text" name="name" placeholder="Ваше имя" required />
+          </label>
+          <label>
+            Телефон
+            <input
+              type="tel"
+              name="phone"
+              placeholder="+7 (___) ___-__-__"
+              required
+            />
+          </label>
+          <button class="primary" type="submit">Отправить заявку</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal" id="productModal" aria-hidden="true">
+      <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="productTitle">
+        <button class="modal-close" type="button" id="closeProductModal" aria-label="Закрыть">×</button>
+        <h3 id="productTitle">JASMU Flow One</h3>
+        <p class="modal-text">
+          Скульптурное кресло из ламелей с мягкой посадкой. Натуральный шпон,
+          индивидуальная настройка высоты и глубины. Срок изготовления — 12 дней.
+        </p>
+        <div class="modal-meta">
+          <span>Материал: натуральный шпон</span>
+          <span>Срок: 12 дней</span>
+          <span>Цена: 37.000 ₽</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const openLeadForm = document.getElementById("openLeadForm");
+      const closeLeadForm = document.getElementById("closeLeadForm");
+      const leadModal = document.getElementById("leadModal");
+      const mainProductCard = document.getElementById("mainProductCard");
+      const productModal = document.getElementById("productModal");
+      const closeProductModal = document.getElementById("closeProductModal");
+
+      const openModal = () => {
+        leadModal.classList.add("is-open");
+        leadModal.setAttribute("aria-hidden", "false");
+      };
+
+      const closeModal = () => {
+        leadModal.classList.remove("is-open");
+        leadModal.setAttribute("aria-hidden", "true");
+      };
+
+      openLeadForm.addEventListener("click", openModal);
+      closeLeadForm.addEventListener("click", closeModal);
+      leadModal.addEventListener("click", (event) => {
+        if (event.target === leadModal) {
+          closeModal();
+        }
+      });
+
+      const openProduct = () => {
+        productModal.classList.add("is-open");
+        productModal.setAttribute("aria-hidden", "false");
+      };
+
+      const closeProduct = () => {
+        productModal.classList.remove("is-open");
+        productModal.setAttribute("aria-hidden", "true");
+      };
+
+      mainProductCard.addEventListener("click", openProduct);
+      closeProductModal.addEventListener("click", closeProduct);
+      productModal.addEventListener("click", (event) => {
+        if (event.target === productModal) {
+          closeProduct();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "product_name": "Майка спорт",
+  "product_type": "Тест",
+  "cost_price": 226.9,
+  "retail_price": 2000.0,
+  "discount_percent": 40.0,
+  "commission_rate": 36.0,
+  "logistics_cost": 50.0,
+  "advertising_percent": 10.0,
+  "buyout_percent": 55.0,
+  "storage_cost": 1.0,
+  "purchased_quantity": 1000,
+  "stock_quantity": 1000,
+  "spp_discount": 30.0,
+  "timestamp": "2025-10-29T21:03:56.735379",
+  "created_date": "2025-10-29 21:03:56",
+  "filename": "Майка спорт_20251029_210356.json",
+  "updated_date": "2025-11-11 18:03:17"
+}

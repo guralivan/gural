@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>jasmu — Админка</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app admin">
+      <header class="topbar">
+        <div class="brand">jasmu</div>
+        <div class="city">
+          <span class="pin" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img">
+              <path
+                d="M12 2.5c-4.14 0-7.5 3.36-7.5 7.5 0 5.43 7.5 11.5 7.5 11.5s7.5-6.07 7.5-11.5c0-4.14-3.36-7.5-7.5-7.5Zm0 10.5a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"
+              />
+            </svg>
+          </span>
+          Москва
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-title">Админка заказов</div>
+        <div class="hero-subtitle">Список новых заказов</div>
+      </section>
+
+      <section class="admin-tabs">
+        <button class="chip active" data-tab="orders">Заказы</button>
+        <button class="chip" data-tab="products">Товары</button>
+        <button class="chip" data-tab="bonus">Бонусы</button>
+        <button class="chip" data-tab="design">Дизайн</button>
+      </section>
+
+      <section class="admin-toolbar">
+        <button class="primary" id="refreshBtn">Обновить</button>
+      </section>
+
+      <section class="admin-section" id="ordersSection">
+        <section class="admin-list" id="ordersList"></section>
+      </section>
+
+      <section class="admin-section hidden" id="productsSection">
+        <section class="hero">
+        <div class="hero-title">Товары</div>
+        <div class="hero-subtitle">Редактирование товаров и картинок</div>
+        </section>
+        <section class="admin-bonus">
+          <label>
+            Фильтры категорий (через запятую)
+            <input type="text" id="filterCategoriesInput" placeholder="Кустовые розы, Розы, Хризантемы" />
+          </label>
+          <label>
+            Фильтры цветов (через запятую)
+            <input type="text" id="filterColorsInput" placeholder="Красные, Розовые, Белые" />
+          </label>
+          <label>
+            Фильтры особенностей (через запятую)
+            <input type="text" id="filterFeaturesInput" placeholder="Сеты, Высокие, Ароматные" />
+          </label>
+          <button class="primary" id="saveFiltersBtn">Сохранить фильтры</button>
+        </section>
+        <section class="admin-bonus">
+          <label>
+            Импорт товаров из CSV
+            <input type="file" id="productsCsvInput" accept=".csv" />
+            <span class="hint">Колонки: id,name,price,category,tags,description,min_qty,delivery_label,image</span>
+          </label>
+          <div class="product-actions">
+            <button class="primary" id="importCsvBtn">Импортировать</button>
+            <button class="secondary" id="exportCsvBtn">Экспорт CSV</button>
+            <button class="primary" id="saveAllProductsBtn">Сохранить все</button>
+          </div>
+        </section>
+        <section class="admin-products" id="productsList"></section>
+      </section>
+
+      <section class="admin-section hidden" id="bonusSection">
+        <section class="hero">
+          <div class="hero-title">Бонусная система</div>
+          <div class="hero-subtitle">Настройки начислений</div>
+        </section>
+        <section class="admin-bonus">
+          <label>
+            Баланс бонусов пользователя
+            <input type="number" id="bonusBalanceInput" value="500" min="0" />
+            <span class="hint">Показывается в корзине как “Накоплено баллов”.</span>
+          </label>
+          <label>
+            Начисление за заказ (доля)
+            <input type="number" id="bonusEarnRateInput" value="0.01" step="0.01" min="0" />
+            <span class="hint">Например 0.01 = 1% от суммы товаров.</span>
+          </label>
+          <label>
+            Списание бонусов (фикс)
+            <input type="number" id="bonusValueInput" value="300" min="0" />
+            <span class="hint">Сколько списывать при включенном переключателе.</span>
+          </label>
+          <label>
+            Сервисный сбор (доля)
+            <input type="number" id="serviceFeeRateInput" value="0.1" step="0.01" min="0" />
+            <span class="hint">Например 0.1 = 10% от суммы товаров.</span>
+          </label>
+          <button class="primary" id="saveBonusBtn">Сохранить</button>
+        </section>
+      </section>
+
+      <section class="admin-section hidden" id="designSection">
+        <section class="hero">
+          <div class="hero-title">Дизайн</div>
+          <div class="hero-subtitle">Цвет акцента</div>
+        </section>
+        <section class="admin-bonus">
+          <label>
+            Заголовок каталога
+            <input type="text" id="heroTitleInput" value="Цветы по себестоимости" />
+          </label>
+          <label>
+            Подзаголовок каталога
+            <input type="text" id="heroSubtitleInput" value="Доставка по Москве" />
+          </label>
+          <label>
+            Основной цвет
+            <input type="text" id="themeColorInput" value="#94a36a" />
+          </label>
+          <label>
+            Палитра
+            <div class="palette" id="themePalette">
+              <button class="palette-color" data-color="#94a36a" style="background:#94a36a;"></button>
+              <button class="palette-color" data-color="#8c8f79" style="background:#8c8f79;"></button>
+              <button class="palette-color" data-color="#7b8f8c" style="background:#7b8f8c;"></button>
+              <button class="palette-color" data-color="#7f7a6e" style="background:#7f7a6e;"></button>
+              <button class="palette-color" data-color="#6f7f73" style="background:#6f7f73;"></button>
+            </div>
+          </label>
+          <input type="color" id="themeColorPicker" value="#94a36a" />
+          <button class="primary" id="saveThemeBtn">Сохранить цвет</button>
+          <button class="primary" id="saveHeroBtn">Сохранить текст</button>
+        </section>
+      </section>
+    </div>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

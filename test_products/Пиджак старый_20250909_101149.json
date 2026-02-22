@@ -3,8 +3,8 @@
   "product_type": "Пиджак",
   "cost_price": 1195.9,
   "retail_price": 8000.0,
-  "discount_percent": 15.0,
-  "commission_rate": 31.0,
+  "discount_percent": 30.0,
+  "commission_rate": 36.0,
   "logistics_cost": 160.0,
   "advertising_percent": 3.0,
   "buyout_percent": 25.0,
@@ -15,5 +15,5 @@
   "timestamp": "2025-09-09T10:11:49.549669",
   "created_date": "2025-09-09 10:11:49",
   "filename": "Пиджак старый_20250909_101149.json",
-  "updated_date": "2025-09-15 09:49:30"
+  "updated_date": "2025-11-11 19:34:25"
 }

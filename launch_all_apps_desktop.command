@@ -30,22 +30,19 @@ stop_port 8503
 stop_port 8504
 stop_port 8505
 stop_port 8506
-stop_port 8507
 stop_port 8508
 stop_port 8509
 stop_port 8510
 stop_port 8511
 stop_port 8512
-stop_port 8513
-stop_port 8514
 stop_port 8515
 
 # Запускаем приложения на разных портах
 echo "🌐 Запуск приложений..."
 
-# Приложение анализа 45.xlsx на порту 8509 (основное)
-echo "📊 Запуск приложения анализа 45.xlsx на порту 8509..."
-streamlit run app_45_simple.py --server.port 8509 --server.address localhost &
+# Приложение анализа Год vs Год на порту 8509 (основное)
+echo "📊 Запуск приложения Анализ Год vs Год на порту 8509..."
+streamlit run apps/analytics_45/app_45_simple.py --server.port 8509 --server.address localhost &
 sleep 3
 
 # 1. Юнит экономика на порту 8501 (если существует)
@@ -63,30 +60,30 @@ if [ -f "3/weekly_expenses_analyzer_final_stable.py" ]; then
 fi
 
 # 3. Калькулятор заказов на порту 8503 (если существует)
-if [ -f "order_balance_app.py" ]; then
+if [ -f "apps/order_balance/order_balance_app.py" ]; then
     echo "📦 Запуск приложения Калькулятор заказов на порту 8503..."
-    streamlit run order_balance_app.py --server.port 8503 --server.address localhost &
+    streamlit run apps/order_balance/order_balance_app.py --server.port 8503 --server.address localhost &
     sleep 3
 fi
 
 # 4. Сезонный калькулятор на порту 8504 (если существует)
-if [ -f "seasonal_expenses_calculator.py" ]; then
+if [ -f "apps/seasonal_calculator/seasonal_expenses_calculator.py" ]; then
     echo "🌡️ Запуск приложения Сезонный калькулятор на порту 8504..."
-    streamlit run seasonal_expenses_calculator.py --server.port 8504 --server.address localhost &
+    streamlit run apps/seasonal_calculator/seasonal_expenses_calculator.py --server.port 8504 --server.address localhost &
     sleep 3
 fi
 
 # 5. Основное приложение на порту 8505 (если существует)
-if [ -f "dashboard_final.py" ]; then
+if [ -f "apps/dashboard/dashboard_final.py" ]; then
     echo "🎯 Запуск приложения Основное приложение на порту 8505..."
-    streamlit run dashboard_final.py --server.port 8505 --server.address localhost &
+    streamlit run apps/dashboard/dashboard_final.py --server.port 8505 --server.address localhost &
     sleep 3
 fi
 
 # 6. Календарь производства на порту 8506 (если существует)
-if [ -f "production_calendar.py" ]; then
+if [ -f "apps/production_calendar/production_calendar.py" ]; then
     echo "📅 Запуск приложения Календарь производства на порту 8506..."
-    streamlit run production_calendar.py --server.port 8506 --server.address localhost &
+    streamlit run apps/production_calendar/production_calendar.py --server.port 8506 --server.address localhost &
     sleep 3
 fi
 
@@ -94,7 +91,7 @@ echo ""
 echo "✅ Все приложения запущены!"
 echo ""
 echo "🌐 Доступные приложения:"
-echo "   📊 Анализ 45.xlsx: http://localhost:8509 (основное)"
+echo "   📊 Анализ Год vs Год: http://localhost:8509 (основное)"
 if [ -f "UNIT/unit_economics_products_table_FINAL.py" ]; then
     echo "   🏪 Юнит экономика: http://localhost:8501"
 fi

@@ -1,0 +1,30 @@
+{
+  "product_name": "Майка спорт",
+  "price_yuan": 11.0,
+  "delivery_russia_usd": 4.005,
+  "logistics_china": 50463.0,
+  "weight": 150.0,
+  "quantity": 1000,
+  "ff": 15.0,
+  "development": 0.0,
+  "other_expenses": 0.0,
+  "yuan_rate": 12.5,
+  "usd_rate": 84.0,
+  "results": {
+    "price_rub_china": 137500.0,
+    "price_rub_china_per_unit": 137.5,
+    "cost_per_unit": 187.97799999999998,
+    "total_cost": 187978.0,
+    "logistics_china_per_unit": 50.463,
+    "logistics_china_total": 50463.0,
+    "ff_per_unit": 0.015,
+    "ff_total": 15.0,
+    "development_per_unit": 0.0,
+    "development_total": 0.0,
+    "other_expenses_per_unit": 0.0,
+    "other_expenses_total": 0.0
+  },
+  "timestamp": "2025-11-03T19:25:19.347536",
+  "created_date": "2025-11-03 19:25:19",
+  "filename": "Майка спорт_20251030_110244.json"
+}

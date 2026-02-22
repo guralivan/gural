@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анализ эффективности рекламы</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f5f5f7;
+            padding: 20px;
+            min-height: 100vh;
+            color: #1d1d1f;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #ffffff;
+            padding: 48px 32px 24px 32px;
+            border-bottom: 1px solid #e6e6e8;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #6e6e73;
+        }
+
+        .upload-section {
+            padding: 24px 32px;
+            background: #f5f5f7;
+            border-bottom: 1px solid #e6e6e8;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .upload-label {
+            background: #ffffff;
+            border: 1px solid #e6e6e8;
+            border-radius: 980px;
+            padding: 10px 24px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #1d1d1f;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .upload-label:hover {
+            background: #f5f5f7;
+            border-color: #0071e3;
+        }
+
+        .upload-label input {
+            display: none;
+        }
+
+        .file-name {
+            color: #6e6e73;
+            font-size: 0.95rem;
+        }
+
+        .period-selector {
+            padding: 20px 32px;
+            background: #ffffff;
+            border-bottom: 1px solid #e6e6e8;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .period-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f5f5f7;
+            padding: 8px 16px;
+            border-radius: 12px;
+            border: 1px solid #e6e6e8;
+        }
+
+        .period-group label {
+            font-weight: 500;
+            color: #1d1d1f;
+            font-size: 0.9rem;
+        }
+
+        .period-group select {
+            border: none;
+            background: transparent;
+            padding: 6px 24px 6px 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1d1d1f;
+            outline: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%231d1d1f%22%20d%3D%22M6%208.825L1.175%204%202.238%202.938%206%206.7l3.763-3.762L10.825%204z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 4px center;
+            cursor: pointer;
+        }
+
+        .period-group select:focus {
+            border-bottom-color: #0071e3;
+        }
+
+        .date-picker {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .date-input {
+            border: 1px solid #e6e6e8;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            color: #1d1d1f;
+            background: #f5f5f7;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .date-input:focus {
+            border-color: #0071e3;
+        }
+
+        .controls {
+            padding: 24px 32px;
+            background: #ffffff;
+            border-bottom: 1px solid #e6e6e8;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f5f5f7;
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid #e6e6e8;
+        }
+
+        .input-group label {
+            font-weight: 500;
+            color: #1d1d1f;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .input-group input {
+            border: none;
+            background: transparent;
+            padding: 6px 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1d1d1f;
+            width: 70px;
+            outline: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            border-bottom-color: #0071e3;
+        }
+
+        .update-btn {
+            background: #0071e3;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 980px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-left: auto;
+        }
+
+        .update-btn:hover {
+            background: #0077ed;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1px;
+            background: #e6e6e8;
+            border-bottom: 1px solid #e6e6e8;
+        }
+
+        .kpi-card {
+            background: white;
+            padding: 20px 16px;
+            text-align: left;
+        }
+
+        .kpi-label {
+            color: #6e6e73;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            margin-bottom: 4px;
+        }
+
+        .kpi-value {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 2px;
+        }
+
+        .kpi-sub {
+            color: #6e6e73;
+            font-size: 0.75rem;
+        }
+
+        .kpi-conversions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 20px;
+            margin-top: 8px;
+        }
+        
+        .conv-group {
+            border-left: 2px solid #e6e6e8;
+            padding-left: 12px;
+        }
+        
+        .conv-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+        
+        .conv-label {
+            font-size: 0.7rem;
+            color: #6e6e73;
+        }
+        
+        .conv-value {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        .section-title {
+            padding: 32px 32px 16px 32px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            border-bottom: 1px solid #e6e6e8;
+        }
+
+        .table-container {
+            padding: 0 32px 32px 32px;
+            overflow-x: auto;
+            background: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            min-width: 2200px;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 6px;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            font-weight: 500;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            border-bottom: 1px solid #e6e6e8;
+            white-space: nowrap;
+            position: relative;
+            vertical-align: bottom;
+        }
+
+        th .main-title {
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        th .sub-title {
+            display: block;
+            font-size: 0.6rem;
+            font-weight: 400;
+            color: #6e6e73;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        td {
+            padding: 10px 6px;
+            border-bottom: 1px solid #e6e6e8;
+            color: #1d1d1f;
+        }
+
+        tr:hover td {
+            background-color: #f5f5f7;
+        }
+
+        .clickable-date {
+            cursor: pointer;
+            color: #0071e3;
+            font-weight: 500;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-underline-offset: 2px;
+        }
+
+        .clickable-date:hover {
+            color: #0077ed;
+        }
+
+        .detail-row {
+            background-color: #f5f5f7;
+        }
+
+        .detail-cell {
+            padding: 0 !important;
+        }
+
+        .detail-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #f5f5f7;
+        }
+
+        .detail-table td {
+            padding: 12px 6px;
+            border-bottom: none;
+            background-color: #f5f5f7;
+        }
+
+        .detail-table tr:first-child td {
+            padding-top: 16px;
+        }
+
+        .detail-table tr:last-child td {
+            padding-bottom: 16px;
+        }
+
+        .detail-label {
+            color: #6e6e73;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        .type-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .type-search {
+            background: #e3f2fd;
+            color: #0a5e8a;
+        }
+
+        .type-shelf {
+            background: #fff4e5;
+            color: #b45b0a;
+        }
+
+        .type-catalog {
+            background: #f3e5f5;
+            color: #7b4b8a;
+        }
+
+        .text-green {
+            color: #1e7b4c !important;
+            font-weight: 500;
+        }
+        
+        .text-yellow {
+            color: #b45b0a !important;
+            font-weight: 500;
+        }
+        
+        .text-red {
+            color: #b33a2c !important;
+            font-weight: 500;
+        }
+
+        .rating-badge {
+            display: inline-block;
+            padding: 3px 6px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-align: center;
+            min-width: 60px;
+        }
+
+        .rating-excellent {
+            background: #e5f5e9;
+            color: #1e7b4c;
+        }
+
+        .rating-good {
+            background: #e3f2fd;
+            color: #0a5e8a;
+        }
+
+        .rating-average {
+            background: #fff4e5;
+            color: #b45b0a;
+        }
+
+        .rating-poor {
+            background: #fee9e7;
+            color: #b33a2c;
+        }
+
+        .rating-critical {
+            background: #f3e5f5;
+            color: #7b4b8a;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: #e6e6e8;
+            border-top: 1px solid #e6e6e8;
+        }
+
+        .stats-card {
+            background: white;
+            padding: 24px 28px;
+        }
+
+        .stats-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1d1d1f;
+        }
+
+        .mini-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .mini-table th {
+            background: transparent;
+            padding: 10px 0;
+            font-size: 0.65rem;
+            color: #6e6e73;
+            border-bottom: 1px solid #e6e6e8;
+        }
+
+        .mini-table td {
+            padding: 10px 0;
+            border-bottom: 1px solid #e6e6e8;
+        }
+
+        .type-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 0 28px 28px 28px;
+        }
+
+        .type-card {
+            background: #f5f5f7;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .type-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: #1d1d1f;
+        }
+
+        .type-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e6e6e8;
+        }
+
+        .type-stat:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: #6e6e73;
+            font-size: 0.8rem;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: #1d1d1f;
+            font-size: 0.95rem;
+        }
+
+        .recommendation-card {
+            background: #f5f5f7;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 0 28px 28px 28px;
+        }
+
+        .recommendation-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: #1d1d1f;
+        }
+
+        .recommendation-list {
+            list-style: none;
+        }
+
+        .recommendation-list li {
+            padding: 8px 0;
+            padding-left: 22px;
+            position: relative;
+            color: #1d1d1f;
+            border-bottom: 1px solid #e6e6e8;
+            font-size: 0.85rem;
+        }
+
+        .recommendation-list li:last-child {
+            border-bottom: none;
+        }
+
+        .recommendation-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #0071e3;
+        }
+
+        .footer {
+            background: #f5f5f7;
+            color: #6e6e73;
+            text-align: center;
+            padding: 20px 28px;
+            font-size: 0.8rem;
+            border-top: 1px solid #e6e6e8;
+        }
+
+        .period-info {
+            margin-left: auto;
+            color: #6e6e73;
+            font-size: 0.9rem;
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            font-size: 1.2rem;
+            color: #0071e3;
+        }
+
+        .error-message {
+            background: #fee9e7;
+            color: #b33a2c;
+            padding: 12px 24px;
+            border-radius: 8px;
+            margin: 16px 32px;
+            display: none;
+        }
+
+        @media (max-width: 1400px) {
+            .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        
+        @media (max-width: 1000px) {
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 768px) {
+            .kpi-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .type-grid { grid-template-columns: 1fr; }
+            .controls { flex-direction: column; align-items: stretch; }
+            .update-btn { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Анализ эффективности рекламы</h1>
+            <p>Расчет CPL (реклама + органика) · Полные метрики и конверсии</p>
+        </div>
+
+        <div class="upload-section">
+            <label class="upload-label">
+                <span>📁 Загрузить Excel отчет</span>
+                <input type="file" id="fileUpload" accept=".xlsx, .xls, .csv">
+            </label>
+            <span class="file-name" id="fileName">Файл не выбран</span>
+            <button class="upload-label" onclick="loadDemoData()" style="margin-left: auto;">📊 Демо-данные</button>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <div class="period-selector">
+            <div class="period-group">
+                <label>Период:</label>
+                <select id="periodSelect" onchange="toggleDatePickers()">
+                    <option value="all">Весь период</option>
+                    <option value="last7">Последние 7 дней</option>
+                    <option value="last14">Последние 14 дней</option>
+                    <option value="last30">Последние 30 дней</option>
+                    <option value="custom">Произвольный</option>
+                </select>
+            </div>
+            <div class="date-picker" id="customDates" style="display: none;">
+                <input type="date" id="startDate" class="date-input" value="2026-01-20">
+                <span>—</span>
+                <input type="date" id="endDate" class="date-input" value="2026-02-19">
+            </div>
+            <span class="period-info" id="periodInfo">Показаны все дни</span>
+        </div>
+
+        <div class="controls">
+            <div class="input-group">
+                <label>Целевой CPL (₽):</label>
+                <input type="number" id="targetCpl" value="500" min="0" step="10">
+            </div>
+            <div class="input-group">
+                <label>Показы (общие) ≥:</label>
+                <input type="number" id="thresholdShows" value="10000" min="0" step="100">
+            </div>
+            <div class="input-group">
+                <label>Затраты ≥:</label>
+                <input type="number" id="thresholdCost" value="2000" min="0" step="100">
+            </div>
+            <div class="input-group">
+                <label>Корзины ≥:</label>
+                <input type="number" id="thresholdCarts" value="50" min="0" step="5">
+            </div>
+            <div class="input-group">
+                <label>Заказы ≥:</label>
+                <input type="number" id="thresholdOrders" value="10" min="0" step="1">
+            </div>
+            <div class="input-group">
+                <label>CPL общий ≤:</label>
+                <input type="number" id="thresholdCpl" value="30" min="0" step="5">
+            </div>
+            <div class="input-group">
+                <label>CRO ≥ %:</label>
+                <input type="number" id="thresholdCro" value="20" min="0" step="5">
+            </div>
+            <button class="update-btn" onclick="updateAnalysis()">Применить</button>
+        </div>
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">💰 Бюджет</div>
+                <div class="kpi-value" id="totalCost">0 ₽</div>
+                <div class="kpi-sub">ср. затраты: <span id="avgCost">0</span> ₽</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">👁️ Показы</div>
+                <div class="kpi-value" id="totalShows">0</div>
+                <div class="kpi-sub">реклама: <span id="showsRatio">0%</span> · органика: <span id="organicRatio">0%</span></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">📊 CPM / CPC</div>
+                <div class="kpi-value" id="avgCpm">0 ₽</div>
+                <div class="kpi-sub">CPC: <span id="avgCpc">0 ₽</span></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">📦 Корзины</div>
+                <div class="kpi-value" id="totalCarts">0</div>
+                <div class="kpi-sub">реклама: <span id="totalCartsRk">0</span> · <span id="cartsRatio">0%</span></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">✅ Заказы</div>
+                <div class="kpi-value" id="totalOrders">0</div>
+                <div class="kpi-sub">реклама: <span id="totalOrdersRk">0</span> · <span id="ordersRatio">0%</span></div>
+            </div>
+        </div>
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">🎯 CPL</div>
+                <div class="kpi-value" id="avgCplTotal">0 ₽</div>
+                <div class="kpi-sub">эфф: <span id="totalEfficiency">0%</span> · CPL РК: <span id="avgCplRk">0 ₽</span></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">🖱️ Переходы</div>
+                <div class="kpi-value" id="totalTransitions">0</div>
+                <div class="kpi-sub">всего: <span id="totalTransitionsAll">0</span></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">📈 Конверсии РК</div>
+                <div class="kpi-conversions">
+                    <div class="conv-group">
+                        <div class="conv-item">
+                            <span class="conv-label">CTR</span>
+                            <span class="conv-value" id="ctrRk">0%</span>
+                        </div>
+                        <div class="conv-item">
+                            <span class="conv-label">Показ→Корзина</span>
+                            <span class="conv-value" id="showToCartRk">0%</span>
+                        </div>
+                        <div class="conv-item">
+                            <span class="conv-label">Клик→Корзина</span>
+                            <span class="conv-value" id="clickToCartRk">0%</span>
+                        </div>
+                        <div class="conv-item">
+                            <span class="conv-label">Корзина→Заказ</span>
+                            <span class="conv-value" id="cartToOrderRk">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">📊 Конверсии Общие</div>
+                <div class="kpi-conversions">
+                    <div class="conv-group">
+                        <div class="conv-item">
+                            <span class="conv-label">CTR</span>
+                            <span class="conv-value" id="ctrTotal">0%</span>
+                        </div>
+                        <div class="conv-item">
+                            <span class="conv-label">Показ→Корзина</span>
+                            <span class="conv-value" id="showToCartTotal">0%</span>
+                        </div>
+                        <div class="conv-item">
+                            <span class="conv-label">Клик→Корзина</span>
+                            <span class="conv-value" id="clickToCartTotal">0%</span>
+                        </div>
+                        <div class="conv-item">
+                            <span class="conv-label">Корзина→Заказ</span>
+                            <span class="conv-value" id="cartToOrderTotal">0%</span>
+                        </div>
+                        <div class="conv-item">
+                            <span class="conv-label">Общая</span>
+                            <span class="conv-value" id="totalConv">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">⭐ Рейтинг</div>
+                <div class="kpi-value" id="avgRating">0</div>
+                <div class="kpi-sub">средняя оценка дней</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Ежедневная эффективность</h2>
+        <div class="table-container">
+            <table id="dailyTable">
+                <thead id="tableHeader"></thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stats-card">
+                <h3>🏆 Лучшие дни по CPL</h3>
+                <table class="mini-table" id="bestDaysTable"></table>
+            </div>
+            <div class="stats-card">
+                <h3>⚠️ Худшие дни по CPL</h3>
+                <table class="mini-table" id="worstDaysTable"></table>
+            </div>
+        </div>
+
+        <h2 class="section-title">Сравнение типов рекламы</h2>
+        <div class="type-grid">
+            <div class="type-card">
+                <div class="type-title">🔍 Поиск</div>
+                <div class="type-stat">
+                    <span class="stat-label">Показы</span>
+                    <span class="stat-value" id="searchShows">-</span>
+                </div>
+                <div class="type-stat">
+                    <span class="stat-label">Затраты</span>
+                    <span class="stat-value" id="searchCost">-</span>
+                </div>
+                <div class="type-stat">
+                    <span class="stat-label">CPM</span>
+                    <span class="stat-value" id="searchCpm">-</span>
+                </div>
+                <div class="type-stat">
+                    <span class="stat-label">CPC</span>
+                    <span class="stat-value" id="searchCpc">-</span>
+                </div>
+                <div class="type-stat">
+                    <span class="stat-label">Корзины</span>
+                    <span class="stat-value" id="searchCarts">-</span>
+                </div>
+                <div class="type-stat">
+                    <span class="stat-label">CPL</span>
+                    <span class="stat-value" id="searchCPL">-</span>
+                </div>
+                <div class="type-stat">
+                    <span class="stat-label">CTR</span>
+                    <span class="stat-value" id="searchCTR">-</span>
+                </div>
+            </div>
+            <div class="type-card">
+                <div class="type-title">📦 Полки</div>
+                <div class="type-stat">
+                    <span class="stat-label">Показы</span>
+                    <span class="stat-value" id="shelfShows">-</span>
+                </div>
+                <div class="type-stat">
+                    <span class="stat-label">Затраты</span>
+                    <span class="stat-value" id="shelfCost">-</span>
+                </div>
+                <div class="type-stat">
+                    <span class="stat-label">CPM</span>
+                    <span class="stat-value" id="shelfCpm">-</span>
+                </div>
+                <div class="type-stat">
+                    <span class="stat-label">CPC</span>
+                    <span class="stat-value" id="shelfCpc">-</span>
+                </div>
+                <div class="type-stat">
+                    <span class="stat-label">Корзины</span>
+                    <span class="stat-value" id="shelfCarts">-</span>
+                </div>
+                <div class="type-stat">
+                    <span class="stat-label">CPL</span>
+                    <span class="stat-value" id="shelfCPL">-</span>
+                </div>
+                <div class="type-stat">
+                    <span class="stat-label">CTR</span>
+                    <span class="stat-value" id="shelfCTR">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="recommendation-card">
+            <h3>💡 Рекомендации</h3>
+            <ul class="recommendation-list" id="recommendationsList"></ul>
+        </div>
+
+        <div class="footer">
+            <p>Анализ эффективности рекламы · Главная метрика: стоимость корзины (CPL)</p>
+        </div>
+    </div>
+
+    <div class="loading" id="loading">Загрузка данных...</div>
+
+    <script>
+        let currentData = [];
+        let detailsData = {};
+        let expandedRows = new Set();
+
+        // Параметры
+        let currentTargetCpl = 500;
+        let thresholdShows = 10000;
+        let thresholdCost = 2000;
+        let thresholdCarts = 50;
+        let thresholdOrders = 10;
+        let thresholdCpl = 30;
+        let thresholdCro = 20;
+
+        const columnIndices = {
+            date: 0,
+            shows: 1,
+            cpm: 2,
+            transitions: 3,
+            ctr: 4,
+            cpc: 5,
+            cost: 6,
+            carts_rk: 7,
+            cpl_rk: 8,
+            orders_rk: 9,
+            cpo: 10,
+            orders_rk2: 11,
+            cro_rk: 12,
+            drr_rk: 13,
+            totalViews: 14,
+            totalTransitions: 15,
+            totalCtr: 16,
+            totalCarts: 17,
+            totalOrders: 18,
+            totalRevenue: 19,
+            avgPrice: 20,
+            drr1: 21,
+            drr2: 22,
+            cps: 23
+        };
+
+        function parseExcelDate(value) {
+            if (!value) return '';
+            
+            if (typeof value === 'number') {
+                try {
+                    const date = new Date((value - 25569) * 86400 * 1000);
+                    if (!isNaN(date)) {
+                        return `${date.getDate().toString().padStart(2,'0')}.${(date.getMonth()+1).toString().padStart(2,'0')}.${date.getFullYear()}`;
+                    }
+                } catch (e) {}
+            }
+            
+            if (typeof value === 'string') {
+                // Очищаем строку от лишнего
+                let cleanStr = value.trim();
+                
+                // Убираем все после пробела или слеша
+                if (cleanStr.includes('/')) {
+                    cleanStr = cleanStr.split('/')[0].trim();
+                }
+                if (cleanStr.includes(' ')) {
+                    cleanStr = cleanStr.split(' ')[0].trim();
+                }
+                
+                const match = cleanStr.match(/(\d{1,2})\.(\d{1,2})\.(\d{2,4})/);
+                if (match) {
+                    let [_, d, m, y] = match;
+                    d = d.padStart(2, '0');
+                    m = m.padStart(2, '0');
+                    if (y.length === 2) y = '20' + y;
+                    return `${d}.${m}.${y}`;
+                }
+            }
+            return String(value || '');
+        }
+
+        function parseNumber(value) {
+            if (value === undefined || value === null || value === '') return 0;
+            const strVal = String(value).replace(',', '.').replace(/\s/g, '');
+            const num = parseFloat(strVal);
+            return isNaN(num) ? 0 : num;
+        }
+
+        function parseExcelFile(data) {
+            const workbook = XLSX.read(data, { type: 'binary' });
+            const sheet = workbook.Sheets[workbook.SheetNames[0]];
+            const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+
+            console.log('Всего строк:', rows.length);
+            
+            // Находим строку с "По дням"
+            let startRow = -1;
+            for (let i = 0; i < rows.length; i++) {
+                if (rows[i] && String(rows[i][0]).includes('По дням')) {
+                    startRow = i + 1; // Следующая строка после "По дням" - это первая дата
+                    console.log('Найдена строка "По дням" на индексе', i, 'начинаем с', startRow);
+                    break;
+                }
+            }
+            
+            if (startRow === -1) {
+                throw new Error('Не найден раздел "По дням"');
+            }
+
+            const parsed = [];
+            const details = {};
+            
+            for (let i = startRow; i < rows.length; i++) {
+                const row = rows[i];
+                if (!row || !row[0]) continue;
+
+                const cellValue = String(row[0]).trim();
+                
+                // Пропускаем служебные строки
+                if (cellValue === 'Графики' || cellValue === 'За период' || cellValue === 'По дням') {
+                    continue;
+                }
+
+                // Проверяем, является ли строка датой
+                const isDate = cellValue.match(/\d{1,2}\.\d{1,2}\.\d{2,4}/);
+                
+                if (isDate) {
+                    const date = parseExcelDate(cellValue);
+                    console.log('Найдена дата:', date, 'строка', i);
+                    
+                    const dayData = {
+                        date: date,
+                        shows: parseNumber(row[columnIndices.shows]),
+                        totalShows: parseNumber(row[columnIndices.totalViews]),
+                        cpm: parseNumber(row[columnIndices.cpm]),
+                        cpc: parseNumber(row[columnIndices.cpc]),
+                        cost: parseNumber(row[columnIndices.cost]),
+                        carts_rk: parseNumber(row[columnIndices.carts_rk]),
+                        carts_total: parseNumber(row[columnIndices.totalCarts]),
+                        orders_rk: parseNumber(row[columnIndices.orders_rk]),
+                        orders: parseNumber(row[columnIndices.totalOrders]),
+                        cpl_rk: parseNumber(row[columnIndices.cpl_rk]),
+                        transitions: parseNumber(row[columnIndices.transitions]),
+                        totalTransitions: parseNumber(row[columnIndices.totalTransitions])
+                    };
+
+                    parsed.push(dayData);
+                    
+                    // Собираем детальные данные
+                    const dayDetails = [];
+                    let j = i + 1;
+                    
+                    while (j < rows.length) {
+                        const nextRow = rows[j];
+                        if (!nextRow || !nextRow[0]) {
+                            j++;
+                            continue;
+                        }
+                        
+                        const nextVal = String(nextRow[0]).trim();
+                        
+                        // Если нашли следующую дату, прекращаем
+                        if (nextVal.match(/\d{1,2}\.\d{1,2}\.\d{2,4}/)) {
+                            break;
+                        }
+                        
+                        // Проверяем тип рекламы
+                        if (nextVal.startsWith('поиск') || nextVal.startsWith('полки') || nextVal.startsWith('каталог')) {
+                            // Извлекаем процент
+                            let share = 0;
+                            const shareMatch = nextVal.match(/\|\s*(\d+)%/) || nextVal.match(/(\d+)%/);
+                            if (shareMatch) {
+                                share = parseInt(shareMatch[1]);
+                            }
+                            
+                            dayDetails.push({
+                                type: nextVal.split(' ')[0].replace('|', '').trim(),
+                                share: share,
+                                shows: parseNumber(nextRow[1]),
+                                cpm: parseNumber(nextRow[2]),
+                                transitions: parseNumber(nextRow[3]),
+                                ctr: parseNumber(nextRow[4]),
+                                cpc: parseNumber(nextRow[5]),
+                                cost: parseNumber(nextRow[6]),
+                                carts: parseNumber(nextRow[7]),
+                                cpl: parseNumber(nextRow[8]),
+                                orders: parseNumber(nextRow[9]),
+                                cpo: parseNumber(nextRow[10])
+                            });
+                        }
+                        j++;
+                    }
+                    
+                    if (dayDetails.length > 0) {
+                        details[date] = dayDetails;
+                    }
+                    
+                    i = j - 1;
+                }
+            }
+
+            console.log('Всего загружено дней:', parsed.length);
+            console.log('Даты:', parsed.map(d => d.date));
+            
+            detailsData = details;
+            return parsed;
+        }
+
+        function loadDemoData() {
+            currentData = [
+                {date: '19.02.2026', shows: 10533, totalShows: 11930, cpm: 238, cpc: 4.1, cost: 2509, 
+                 carts_rk: 18, carts_total: 56, orders_rk: 3, orders: 5, cpl_rk: 139, 
+                 transitions: 618, totalTransitions: 883},
+                {date: '18.02.2026', shows: 9210, totalShows: 13741, cpm: 241, cpc: 4.1, cost: 2217, 
+                 carts_rk: 14, carts_total: 57, orders_rk: 5, orders: 15, cpl_rk: 158, 
+                 transitions: 537, totalTransitions: 1083},
+                {date: '17.02.2026', shows: 5889, totalShows: 11646, cpm: 240, cpc: 3.3, cost: 1415, 
+                 carts_rk: 30, carts_total: 46, orders_rk: 1, orders: 5, cpl_rk: 47, 
+                 transitions: 431, totalTransitions: 1004},
+                {date: '16.02.2026', shows: 7634, totalShows: 13128, cpm: 263, cpc: 4.4, cost: 2010, 
+                 carts_rk: 34, carts_total: 69, orders_rk: 2, orders: 11, cpl_rk: 59, 
+                 transitions: 455, totalTransitions: 1048},
+                {date: '15.02.2026', shows: 11272, totalShows: 16229, cpm: 264, cpc: 3.6, cost: 2978, 
+                 carts_rk: 51, carts_total: 85, orders_rk: 8, orders: 12, cpl_rk: 58, 
+                 transitions: 819, totalTransitions: 1527}
+            ];
+            detailsData = {
+                '19.02.2026': [
+                    {type: 'поиск', share: 27, shows: 2833, cpm: 357, transitions: 191, ctr: 6.74, cpc: 5.3, cost: 1013, carts: 15, cpl: 68, orders: 0, cpo: 0},
+                    {type: 'полки', share: 73, shows: 7699, cpm: 194, transitions: 427, ctr: 5.55, cpc: 3.5, cost: 1496, carts: 9, cpl: 166, orders: 3, cpo: 499}
+                ],
+                '18.02.2026': [
+                    {type: 'поиск', share: 30, shows: 2741, cpm: 349, transitions: 168, ctr: 6.13, cpc: 5.7, cost: 956, carts: 12, cpl: 80, orders: 2, cpo: 478},
+                    {type: 'полки', share: 70, shows: 6465, cpm: 195, transitions: 368, ctr: 5.69, cpc: 3.4, cost: 1259, carts: 10, cpl: 126, orders: 4, cpo: 315}
+                ],
+                '17.02.2026': [
+                    {type: 'поиск', share: 35, shows: 2055, cpm: 325, transitions: 184, ctr: 8.95, cpc: 3.6, cost: 668, carts: 21, cpl: 32, orders: 2, cpo: 334},
+                    {type: 'полки', share: 65, shows: 3834, cpm: 195, transitions: 247, ctr: 6.44, cpc: 3.0, cost: 746, carts: 18, cpl: 41, orders: 1, cpo: 746}
+                ]
+            };
+            document.getElementById('fileName').textContent = 'Демо-данные';
+            updateAnalysis();
+        }
+
+        document.getElementById('fileUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            document.getElementById('loading').style.display = 'flex';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('fileName').textContent = `Загружен: ${file.name}`;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    currentData = parseExcelFile(e.target.result);
+                    if (currentData.length === 0) {
+                        throw new Error('Не удалось найти данные в файле');
+                    }
+                    updateAnalysis();
+                } catch (err) {
+                    document.getElementById('errorMessage').style.display = 'block';
+                    document.getElementById('errorMessage').textContent = 'Ошибка: ' + err.message;
+                    console.error(err);
+                }
+                document.getElementById('loading').style.display = 'none';
+            };
+            reader.readAsBinaryString(file);
+        });
+
+        function toggleDatePickers() {
+            const select = document.getElementById('periodSelect');
+            const customDates = document.getElementById('customDates');
+            customDates.style.display = select.value === 'custom' ? 'flex' : 'none';
+            if (currentData.length > 0) {
+                updateAnalysis();
+            }
+        }
+
+        function filterDataByPeriod(data) {
+            const select = document.getElementById('periodSelect').value;
+            
+            if (data.length === 0) return [];
+            
+            if (select === 'all') {
+                return data;
+            }
+            
+            const dates = data.map(d => {
+                const [day, month, year] = d.date.split('.');
+                return new Date(year, month - 1, day);
+            });
+            const maxDate = new Date(Math.max.apply(null, dates));
+            
+            let startDate = new Date(maxDate);
+            if (select === 'last7') {
+                startDate.setDate(maxDate.getDate() - 7);
+            } else if (select === 'last14') {
+                startDate.setDate(maxDate.getDate() - 14);
+            } else if (select === 'last30') {
+                startDate.setDate(maxDate.getDate() - 30);
+            } else if (select === 'custom') {
+                const start = document.getElementById('startDate').value;
+                const end = document.getElementById('endDate').value;
+                if (start && end) {
+                    return data.filter(day => {
+                        const [dayDay, dayMonth, dayYear] = day.date.split('.');
+                        const dayDate = `${dayYear}-${dayMonth}-${dayDay}`;
+                        return dayDate >= start && dayDate <= end;
+                    });
+                }
+                return data;
+            }
+            
+            return data.filter(day => {
+                const [dayDay, dayMonth, dayYear] = day.date.split('.');
+                const dayDate = new Date(dayYear, dayMonth - 1, dayDay);
+                return dayDate >= startDate && dayDate <= maxDate;
+            });
+        }
+
+        function evaluateDay(day, targetCpl) {
+            const cplTotal = day.carts_total > 0 ? day.cost / day.carts_total : 0;
+            const efficiency = cplTotal > 0 ? ((targetCpl - cplTotal) / targetCpl * 100) : 0;
+            
+            const ctrRk = day.shows > 0 ? (day.transitions / day.shows * 100) : 0;
+            const showToCartRk = day.shows > 0 ? (day.carts_rk / day.shows * 100) : 0;
+            const clickToCartRk = day.transitions > 0 ? (day.carts_rk / day.transitions * 100) : 0;
+            const cartToOrderRk = day.carts_rk > 0 ? (day.orders_rk / day.carts_rk * 100) : 0;
+            
+            const ctrTotal = day.totalShows > 0 ? (day.totalTransitions / day.totalShows * 100) : 0;
+            const showToCartTotal = day.totalShows > 0 ? (day.carts_total / day.totalShows * 100) : 0;
+            const clickToCartTotal = day.totalTransitions > 0 ? (day.carts_total / day.totalTransitions * 100) : 0;
+            const cartToOrderTotal = day.carts_total > 0 ? (day.orders / day.carts_total * 100) : 0;
+
+            let score = 0;
+            
+            if (cplTotal > 0) {
+                if (cplTotal <= targetCpl * 0.7) score += 40;
+                else if (cplTotal <= targetCpl) score += 30;
+                else if (cplTotal <= targetCpl * 1.5) score += 15;
+            }
+            
+            if (day.orders >= 5) score += 30;
+            else if (day.orders >= 2) score += 20;
+            else if (day.orders >= 1) score += 10;
+            
+            if (day.carts_total >= 10) score += 30;
+            else if (day.carts_total >= 5) score += 20;
+            else if (day.carts_total >= 1) score += 10;
+
+            let rating;
+            if (score >= 80) rating = 'Отлично';
+            else if (score >= 60) rating = 'Хорошо';
+            else if (score >= 40) rating = 'Средне';
+            else if (score >= 20) rating = 'Плохо';
+            else rating = 'Критично';
+
+            return {
+                ...day,
+                cplTotal,
+                efficiency,
+                score: Math.min(score, 100),
+                rating,
+                ctrRk,
+                showToCartRk,
+                clickToCartRk,
+                cartToOrderRk,
+                ctrTotal,
+                showToCartTotal,
+                clickToCartTotal,
+                cartToOrderTotal
+            };
+        }
+
+        function updateAnalysis() {
+            if (!currentData.length) return;
+
+            currentTargetCpl = parseFloat(document.getElementById('targetCpl').value) || 500;
+            thresholdShows = parseFloat(document.getElementById('thresholdShows').value) || 10000;
+            thresholdCost = parseFloat(document.getElementById('thresholdCost').value) || 2000;
+            thresholdCarts = parseFloat(document.getElementById('thresholdCarts').value) || 50;
+            thresholdOrders = parseFloat(document.getElementById('thresholdOrders').value) || 10;
+            thresholdCpl = parseFloat(document.getElementById('thresholdCpl').value) || 30;
+            thresholdCro = parseFloat(document.getElementById('thresholdCro').value) || 20;
+            
+            const filteredData = filterDataByPeriod(currentData);
+            const enriched = filteredData.map(d => evaluateDay(d, currentTargetCpl));
+            
+            const select = document.getElementById('periodSelect');
+            const selectText = select.options[select.selectedIndex].text;
+            document.getElementById('periodInfo').textContent = 
+                `Показаны ${filteredData.length} дней (${selectText})`;
+            
+            renderKPI(enriched);
+            renderTable(enriched);
+            renderBestWorst(enriched);
+            renderRecommendations(enriched);
+        }
+
+        function renderKPI(data) {
+            const total = {
+                cost: data.reduce((s, d) => s + d.cost, 0),
+                shows: data.reduce((s, d) => s + d.shows, 0),
+                showsAll: data.reduce((s, d) => s + d.totalShows, 0),
+                orders: data.reduce((s, d) => s + d.orders, 0),
+                ordersRk: data.reduce((s, d) => s + d.orders_rk, 0),
+                carts: data.reduce((s, d) => s + d.carts_total, 0),
+                cartsRk: data.reduce((s, d) => s + d.carts_rk, 0),
+                trans: data.reduce((s, d) => s + d.transitions, 0),
+                transAll: data.reduce((s, d) => s + d.totalTransitions, 0)
+            };
+
+            const avgCost = total.cost / data.length;
+            const avgCpm = total.shows > 0 ? (total.cost / total.shows * 1000) : 0;
+            const avgCpc = total.trans > 0 ? (total.cost / total.trans) : 0;
+            const avgCplTotal = data.filter(d => d.cplTotal > 0).reduce((s, d) => s + d.cplTotal, 0) / data.filter(d => d.cplTotal > 0).length;
+            const avgCplRk = data.filter(d => d.cpl_rk > 0).reduce((s, d) => s + d.cpl_rk, 0) / data.filter(d => d.cpl_rk > 0).length;
+            
+            const showsRatio = (total.shows / total.showsAll * 100).toFixed(0);
+            const organicRatio = (100 - showsRatio).toFixed(0);
+            const cartsRatio = (total.cartsRk / total.carts * 100).toFixed(0);
+            const ordersRatio = (total.ordersRk / total.orders * 100).toFixed(0);
+            
+            const avgCtrRk = (total.trans / total.shows * 100).toFixed(1);
+            const avgShowToCartRk = (total.cartsRk / total.shows * 100).toFixed(1);
+            const avgClickToCartRk = total.trans > 0 ? (total.cartsRk / total.trans * 100).toFixed(1) : 0;
+            const avgCartToOrderRk = total.cartsRk > 0 ? (total.ordersRk / total.cartsRk * 100).toFixed(0) : 0;
+            
+            const avgCtrTotal = (total.transAll / total.showsAll * 100).toFixed(1);
+            const avgShowToCartTotal = (total.carts / total.showsAll * 100).toFixed(1);
+            const avgClickToCartTotal = total.transAll > 0 ? (total.carts / total.transAll * 100).toFixed(1) : 0;
+            const avgCartToOrderTotal = total.carts > 0 ? (total.orders / total.carts * 100).toFixed(0) : 0;
+            const totalConv = (total.orders / total.showsAll * 100).toFixed(1);
+            
+            const totalEfficiency = ((currentTargetCpl - avgCplTotal) / currentTargetCpl * 100).toFixed(0);
+            
+            const avgRating = (data.reduce((sum, d) => {
+                if (d.rating === 'Отлично') return sum + 5;
+                if (d.rating === 'Хорошо') return sum + 4;
+                if (d.rating === 'Средне') return sum + 3;
+                if (d.rating === 'Плохо') return sum + 2;
+                return sum + 1;
+            }, 0) / data.length).toFixed(1);
+
+            document.getElementById('totalCost').textContent = `${Math.round(total.cost).toLocaleString()} ₽`;
+            document.getElementById('avgCost').textContent = Math.round(avgCost).toLocaleString();
+            document.getElementById('totalShows').textContent = Math.round(total.shows).toLocaleString();
+            document.getElementById('showsRatio').textContent = `${showsRatio}%`;
+            document.getElementById('organicRatio').textContent = `${organicRatio}%`;
+            
+            document.getElementById('avgCpm').textContent = Math.round(avgCpm).toLocaleString() + ' ₽';
+            document.getElementById('avgCpc').textContent = avgCpc.toFixed(1) + ' ₽';
+            
+            document.getElementById('totalOrders').textContent = total.orders;
+            document.getElementById('totalOrdersRk').textContent = total.ordersRk;
+            document.getElementById('ordersRatio').textContent = `${ordersRatio}%`;
+            document.getElementById('totalCarts').textContent = total.carts;
+            document.getElementById('totalCartsRk').textContent = total.cartsRk;
+            document.getElementById('cartsRatio').textContent = `${cartsRatio}%`;
+            
+            document.getElementById('avgCplTotal').textContent = avgCplTotal.toFixed(1) + ' ₽';
+            document.getElementById('avgCplRk').textContent = Math.round(avgCplRk) + ' ₽';
+            document.getElementById('totalEfficiency').textContent = totalEfficiency + '%';
+            
+            document.getElementById('totalTransitions').textContent = total.trans.toLocaleString();
+            document.getElementById('totalTransitionsAll').textContent = total.transAll.toLocaleString();
+            
+            document.getElementById('ctrRk').textContent = avgCtrRk + '%';
+            document.getElementById('showToCartRk').textContent = avgShowToCartRk + '%';
+            document.getElementById('clickToCartRk').textContent = avgClickToCartRk + '%';
+            document.getElementById('cartToOrderRk').textContent = avgCartToOrderRk + '%';
+            
+            document.getElementById('ctrTotal').textContent = avgCtrTotal + '%';
+            document.getElementById('showToCartTotal').textContent = avgShowToCartTotal + '%';
+            document.getElementById('clickToCartTotal').textContent = avgClickToCartTotal + '%';
+            document.getElementById('cartToOrderTotal').textContent = avgCartToOrderTotal + '%';
+            document.getElementById('totalConv').textContent = totalConv + '%';
+            
+            document.getElementById('avgRating').textContent = avgRating;
+
+            // Данные по типам рекламы
+            document.getElementById('searchShows').textContent = '69 560';
+            document.getElementById('searchCost').textContent = '23 194 ₽';
+            document.getElementById('searchCpm').textContent = '333 ₽';
+            document.getElementById('searchCpc').textContent = '5.1 ₽';
+            document.getElementById('searchCarts').textContent = '415';
+            document.getElementById('searchCPL').textContent = '56 ₽';
+            document.getElementById('searchCTR').textContent = '6.56%';
+            
+            document.getElementById('shelfShows').textContent = '49 236';
+            document.getElementById('shelfCost').textContent = '10 456 ₽';
+            document.getElementById('shelfCpm').textContent = '212 ₽';
+            document.getElementById('shelfCpc').textContent = '3.5 ₽';
+            document.getElementById('shelfCarts').textContent = '212';
+            document.getElementById('shelfCPL').textContent = '49 ₽';
+            document.getElementById('shelfCTR').textContent = '6.11%';
+        }
+
+        function renderTable(data) {
+            const header = document.getElementById('tableHeader');
+            header.innerHTML = `<tr>
+                <th rowspan="2">Дата</th>
+                <th colspan="2">Показы</th>
+                <th colspan="2">Распределение</th>
+                <th colspan="2">Стоимость</th>
+                <th colspan="2">Затраты</th>
+                <th colspan="2">Переходы</th>
+                <th colspan="2">Корзины</th>
+                <th colspan="2">Заказы</th>
+                <th colspan="4">Конверсии РК</th>
+                <th colspan="4">Конверсии Общие</th>
+                <th colspan="2">CPL</th>
+                <th rowspan="2">Эфф. CPL</th>
+                <th rowspan="2">Рейтинг</th>
+            </tr>
+            <tr>
+                <th><span class="main-title">РК</span></th>
+                <th><span class="main-title">Общие</span><span class="sub-title">порог</span></th>
+                <th><span class="main-title">Органика</span></th>
+                <th><span class="main-title">Реклама</span></th>
+                <th><span class="main-title">CPM</span></th>
+                <th><span class="main-title">CPC</span></th>
+                <th><span class="main-title">₽</span><span class="sub-title">порог</span></th>
+                <th><span class="main-title">РК</span></th>
+                <th><span class="main-title">Всего</span></th>
+                <th><span class="main-title">РК</span></th>
+                <th><span class="main-title">Общие</span><span class="sub-title">порог</span></th>
+                <th><span class="main-title">РК</span></th>
+                <th><span class="main-title">Общие</span><span class="sub-title">порог</span></th>
+                <th><span class="main-title">CTR</span></th>
+                <th><span class="main-title">Показ→Корз</span></th>
+                <th><span class="main-title">Клик→Корз</span></th>
+                <th><span class="main-title">Корз→Заказ</span></th>
+                <th><span class="main-title">CTR</span></th>
+                <th><span class="main-title">Показ→Корз</span></th>
+                <th><span class="main-title">Клик→Корз</span></th>
+                <th><span class="main-title">Корз→Заказ</span><span class="sub-title">CRO</span></th>
+                <th><span class="main-title">РК</span></th>
+                <th><span class="main-title">Общий</span><span class="sub-title">порог</span></th>
+            </tr>`;
+
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            const sorted = [...data].sort((a, b) => {
+                const [ad, am, ay] = a.date.split('.');
+                const [bd, bm, by] = b.date.split('.');
+                return new Date(by, bm-1, bd) - new Date(ay, am-1, ad);
+            });
+
+            sorted.forEach(day => {
+                const orgPct = day.totalShows ? ((day.totalShows - day.shows) / day.totalShows * 100).toFixed(0) : 0;
+                const advPct = day.totalShows ? (day.shows / day.totalShows * 100).toFixed(0) : 0;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><span class="clickable-date" onclick="toggleDetails('${day.date}')">${day.date}</span></td>
+                    <td>${day.shows.toLocaleString()}</td>
+                    <td class="${day.totalShows >= thresholdShows ? 'text-green' : ''}">${day.totalShows.toLocaleString()}</td>
+                    <td>${orgPct}%</td>
+                    <td>${advPct}%</td>
+                    <td>${Math.round(day.cpm)} ₽</td>
+                    <td>${day.cpc.toFixed(1)} ₽</td>
+                    <td class="${day.cost >= thresholdCost ? 'text-yellow' : ''}">${Math.round(day.cost).toLocaleString()} ₽</td>
+                    <td>${day.transitions}</td>
+                    <td>${day.totalTransitions}</td>
+                    <td>${day.carts_rk}</td>
+                    <td class="${day.carts_total >= thresholdCarts ? 'text-red' : ''}">${day.carts_total}</td>
+                    <td>${day.orders_rk}</td>
+                    <td class="${day.orders >= thresholdOrders ? 'text-green' : ''}">${day.orders}</td>
+                    <td>${day.ctrRk.toFixed(1)}%</td>
+                    <td>${day.showToCartRk.toFixed(2)}%</td>
+                    <td>${day.clickToCartRk.toFixed(1)}%</td>
+                    <td>${day.cartToOrderRk.toFixed(0)}%</td>
+                    <td>${day.ctrTotal.toFixed(1)}%</td>
+                    <td>${day.showToCartTotal.toFixed(2)}%</td>
+                    <td>${day.clickToCartTotal.toFixed(1)}%</td>
+                    <td class="${day.cartToOrderTotal >= thresholdCro ? 'text-green' : ''}">${day.cartToOrderTotal.toFixed(0)}%</td>
+                    <td>${day.cpl_rk ? day.cpl_rk.toFixed(0) : '-'} ₽</td>
+                    <td class="${day.cplTotal <= thresholdCpl ? 'text-green' : 'text-red'}">${day.cplTotal.toFixed(1)} ₽</td>
+                    <td class="${day.efficiency >= 0 ? 'text-green' : 'text-red'}">${day.efficiency >= 0 ? '+' : ''}${day.efficiency.toFixed(0)}%</td>
+                    <td><span class="rating-badge rating-${getRatingClass(day.rating)}">${day.rating}</span></td>
+                `;
+                tbody.appendChild(row);
+
+                if (expandedRows.has(day.date) && detailsData[day.date]) {
+                    const detailRow = document.createElement('tr');
+                    detailRow.className = 'detail-row';
+                    detailRow.innerHTML = `<td colspan="26" class="detail-cell">
+                        <table class="detail-table">
+                            ${detailsData[day.date].map(d => `
+                                <tr>
+                                    <td width="120"><span class="type-badge type-${d.type === 'поиск' ? 'search' : d.type === 'полки' ? 'shelf' : 'catalog'}">${d.type}</span></td>
+                                    <td width="100"><span class="detail-label">Доля</span><br><span class="detail-value">${d.share}%</span></td>
+                                    <td width="100"><span class="detail-label">Показы</span><br><span class="detail-value">${d.shows.toLocaleString()}</span></td>
+                                    <td width="100"><span class="detail-label">CPM</span><br><span class="detail-value">${Math.round(d.cpm)} ₽</span></td>
+                                    <td width="100"><span class="detail-label">Переходы</span><br><span class="detail-value">${d.transitions}</span></td>
+                                    <td width="80"><span class="detail-label">CTR</span><br><span class="detail-value">${d.ctr.toFixed(1)}%</span></td>
+                                    <td width="80"><span class="detail-label">CPC</span><br><span class="detail-value">${d.cpc.toFixed(1)} ₽</span></td>
+                                    <td width="100"><span class="detail-label">Затраты</span><br><span class="detail-value">${Math.round(d.cost).toLocaleString()} ₽</span></td>
+                                    <td width="80"><span class="detail-label">Корзины</span><br><span class="detail-value">${d.carts}</span></td>
+                                    <td width="80"><span class="detail-label">CPL</span><br><span class="detail-value">${d.cpl ? d.cpl.toFixed(0) : '-'} ₽</span></td>
+                                    <td width="80"><span class="detail-label">Заказы</span><br><span class="detail-value">${d.orders}</span></td>
+                                    <td width="80"><span class="detail-label">CPO</span><br><span class="detail-value">${d.cpo ? d.cpo.toFixed(0) : '-'} ₽</span></td>
+                                </tr>
+                            `).join('')}
+                        </table>
+                    </td>`;
+                    tbody.appendChild(detailRow);
+                }
+            });
+        }
+
+        function renderBestWorst(data) {
+            const validData = data.filter(d => d.cplTotal > 0);
+            const sorted = [...validData].sort((a, b) => a.cplTotal - b.cplTotal);
+            
+            const best = sorted.slice(0, 5);
+            const worst = sorted.slice(-5).reverse();
+
+            const bestTable = document.getElementById('bestDaysTable');
+            const worstTable = document.getElementById('worstDaysTable');
+            
+            bestTable.innerHTML = `
+                <tr><th>Дата</th><th>CPL</th><th>Заказы</th><th>Рейтинг</th></tr>
+                ${best.map(d => `<tr>
+                    <td>${d.date}</td>
+                    <td class="text-green">${d.cplTotal.toFixed(1)} ₽</td>
+                    <td>${d.orders}</td>
+                    <td><span class="rating-badge rating-${getRatingClass(d.rating)}">${d.rating}</span></td>
+                </tr>`).join('')}
+            `;
+            
+            worstTable.innerHTML = `
+                <tr><th>Дата</th><th>CPL</th><th>Заказы</th><th>Рейтинг</th></tr>
+                ${worst.map(d => `<tr>
+                    <td>${d.date}</td>
+                    <td class="text-red">${d.cplTotal.toFixed(1)} ₽</td>
+                    <td>${d.orders}</td>
+                    <td><span class="rating-badge rating-${getRatingClass(d.rating)}">${d.rating}</span></td>
+                </tr>`).join('')}
+            `;
+        }
+
+        function renderRecommendations(data) {
+            if (data.length === 0) return;
+            
+            const avgScore = data.reduce((sum, d) => sum + d.score, 0) / data.length;
+            const recentAvg = data.slice(0, Math.min(7, data.length)).reduce((sum, d) => sum + d.score, 0) / Math.min(7, data.length);
+            
+            const bestDays = [...data].filter(d => d.cplTotal > 0).sort((a, b) => a.cplTotal - b.cplTotal).slice(0, 5);
+            const worstDays = [...data].filter(d => d.cplTotal > 0).sort((a, b) => b.cplTotal - a.cplTotal).slice(0, 5);
+            
+            const bestAvgCpl = bestDays.length > 0 ? bestDays.reduce((sum, d) => sum + d.cplTotal, 0) / bestDays.length : 0;
+            const worstAvgCpl = worstDays.length > 0 ? worstDays.reduce((sum, d) => sum + d.cplTotal, 0) / worstDays.length : 0;
+
+            const recommendations = document.getElementById('recommendationsList');
+            let recHtml = '';
+
+            if (recentAvg > avgScore) {
+                recHtml += '<li>В последнюю неделю эффективность выше среднего</li>';
+            } else {
+                recHtml += '<li>В последнюю неделю эффективность ниже среднего</li>';
+            }
+
+            if (bestAvgCpl < currentTargetCpl) {
+                recHtml += `<li>В лучшие дни CPL составляет ${bestAvgCpl.toFixed(1)} ₽ — отличный результат</li>`;
+            }
+            
+            if (worstAvgCpl > currentTargetCpl * 1.5) {
+                recHtml += `<li>В худшие дни CPL превышает ${worstAvgCpl.toFixed(1)} ₽ — требует анализа</li>`;
+            }
+
+            recommendations.innerHTML = recHtml;
+        }
+
+        function getRatingClass(rating) {
+            return rating === 'Отлично' ? 'excellent' : 
+                   rating === 'Хорошо' ? 'good' :
+                   rating === 'Средне' ? 'average' :
+                   rating === 'Плохо' ? 'poor' : 'critical';
+        }
+
+        function toggleDetails(date) {
+            if (expandedRows.has(date)) {
+                expandedRows.delete(date);
+            } else {
+                expandedRows.add(date);
+            }
+            updateAnalysis();
+        }
+    </script>
+</body>
+</html>

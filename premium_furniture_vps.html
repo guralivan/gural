@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>jasmu — премиальная мебель</title>
+    <style>
+      @font-face {
+        font-family: "SF Pro Display";
+        font-style: normal;
+        font-weight: 300 700;
+        src: local("SF Pro Display");
+      }
+
+      :root {
+        color-scheme: light;
+        --bg: #f5f3f0;
+        --bg-soft: #fbfaf8;
+        --text: #1d1d1f;
+        --muted: #6e6e73;
+        --accent: #111111;
+        --card: #ffffff;
+        --shadow: 0 30px 70px rgba(17, 17, 17, 0.08);
+        --radius: 28px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button {
+        font: inherit;
+        border: none;
+        cursor: pointer;
+        background: none;
+      }
+
+      .hero {
+        min-height: 100vh;
+        background: url("images/hero.png") center/cover no-repeat;
+        padding: 32px 6vw 80px;
+        position: relative;
+        overflow: hidden;
+        color: #ffffff;
+      }
+
+      .nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 24px;
+        padding: 16px 0;
+      }
+
+      .logo {
+        font-size: 20px;
+        letter-spacing: normal;
+        font-weight: 600;
+        text-transform: lowercase;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
+      }
+
+      .nav-cta {
+        padding: 10px 18px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        font-size: 13px;
+      }
+
+      .hero-content {
+        max-width: 640px;
+        padding-top: 70px;
+      }
+
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.75);
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-size: clamp(28px, 4.4vw, 48px);
+        font-weight: 600;
+        line-height: 1.08;
+        margin: 0 0 18px;
+      }
+
+      .lead {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.78);
+        line-height: 1.35;
+        margin: 0 0 26px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .primary,
+      .secondary {
+        padding: 14px 24px;
+        border-radius: 999px;
+        font-size: 15px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .primary {
+        background: var(--text);
+        color: #fff;
+        box-shadow: var(--shadow);
+      }
+
+      .secondary {
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(17, 17, 17, 0.1);
+      }
+
+      .primary:hover,
+      .secondary:hover,
+      .nav-cta:hover {
+        transform: translateY(-2px);
+      }
+
+      .section {
+        padding: 80px 6vw;
+      }
+
+      .section-header {
+        max-width: 720px;
+        margin-bottom: 36px;
+      }
+
+      .section-header h2 {
+        font-size: clamp(26px, 4vw, 40px);
+        margin: 0 0 12px;
+      }
+
+      .section-header p {
+        color: var(--muted);
+        margin: 0;
+      }
+
+      .catalog {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
+        gap: 20px;
+      }
+
+      .catalog-card {
+        background: var(--card);
+        padding: 24px;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        display: grid;
+        gap: 18px;
+      }
+
+      .catalog-media {
+        height: 220px;
+        border-radius: 20px;
+        background: url("images/catalog.png") center/cover no-repeat;
+      }
+
+      .catalog-body h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
+
+      .catalog-body p {
+        margin: 0 0 14px;
+        color: var(--muted);
+      }
+
+      .catalog-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .gallery {
+        background: var(--bg-soft);
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+      }
+
+      .gallery-grid img {
+        width: 100%;
+        height: 100%;
+        border-radius: 24px;
+        object-fit: cover;
+        box-shadow: var(--shadow);
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+      }
+
+      .feature-card {
+        background: var(--card);
+        padding: 28px;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .feature-card h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
+
+      .feature-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .quote {
+        padding-top: 40px;
+      }
+
+      .quote-card {
+        background: var(--card);
+        padding: 40px;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        max-width: 720px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .quote-card p {
+        font-size: 20px;
+        margin: 0 0 16px;
+      }
+
+      .quote-card span {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .footer {
+        background: #111111;
+        color: #fff;
+        padding: 60px 6vw 30px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 24px;
+      }
+
+      .footer h4 {
+        margin: 0 0 12px;
+        font-size: 16px;
+      }
+
+      .footer p {
+        margin: 0 0 8px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .footer-bottom {
+        margin-top: 30px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      @media (max-width: 900px) {
+        .nav {
+          grid-template-columns: 1fr auto;
+        }
+
+        .nav-links {
+          display: none;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero {
+          padding: 32px 6vw 60px;
+        }
+
+        .hero-content {
+          padding-top: 40px;
+        }
+
+        h1 {
+          font-size: 26px;
+          line-height: 1.14;
+        }
+
+        .lead {
+          font-size: 14px;
+          line-height: 1.42;
+        }
+
+        .eyebrow {
+          font-size: 11px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="nav">
+        <div class="logo">jasmu</div>
+        <div class="nav-links">
+          <a href="#collection">Каталог</a>
+          <a href="#craft">Мастерство</a>
+          <a href="#gallery">Галерея</a>
+          <a href="#contact">Контакты</a>
+        </div>
+        <button class="nav-cta">Заказать консультацию</button>
+      </nav>
+      <div class="hero-content">
+        <p class="eyebrow">Премиальная мебель</p>
+        <h1>Лаконичная форма. Тёплое дерево. Идеальная посадка.</h1>
+        <p class="lead">
+          Коллекция авторских кресел, созданных для безупречного комфорта и
+          эстетики.
+        </p>
+        <div class="hero-actions">
+          <button class="secondary">Скачать каталог</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="collection">
+        <div class="section-header">
+          <h2>Каталог кресел</h2>
+          <p>Сейчас в каталоге один продукт. Скоро добавим новые модели.</p>
+        </div>
+        <div class="catalog">
+          <div class="catalog-card">
+            <div class="catalog-media"></div>
+            <div class="catalog-body">
+              <h3>JASMU Flow One</h3>
+              <p>Скульптурное кресло из ламелей с мягкой посадкой.</p>
+              <div class="catalog-meta">
+                <span>Натуральный шпон</span>
+                <span>Под заказ 12 дней</span>
+              </div>
+            </div>
+            <button class="primary">Запросить цену</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section gallery" id="gallery">
+        <div class="section-header">
+          <h2>Галерея</h2>
+          <p>Вдохновляйтесь светом, тенью и текстурой натурального дерева.</p>
+        </div>
+        <div class="gallery-grid">
+          <img src="images/gallery-1.png" alt="Кресло из ламелей в тёплом свете" loading="lazy" />
+          <img src="images/gallery-2.png" alt="Скульптурное кресло, боковой ракурс" loading="lazy" />
+          <img src="images/gallery-3.png" alt="Крупный план ламелей" loading="lazy" />
+          <img src="images/gallery-4.png" alt="Кресло в мягком вечернем освещении" loading="lazy" />
+          <img src="images/gallery-5.png" alt="Светлый интерьер с креслом" loading="lazy" />
+          <img src="images/gallery-6.png" alt="Лёгкая конструкция и изгибы" loading="lazy" />
+        </div>
+      </section>
+
+      <section class="section" id="craft">
+        <div class="section-header">
+          <h2>Мастерство</h2>
+          <p>
+            Мы используем многослойную формовку, чтобы добиться идеального изгиба
+            и мягкой пружинистости. Лак на водной основе сохраняет естественный
+            цвет дерева.
+          </p>
+        </div>
+        <div class="features">
+          <div class="feature-card">
+            <h3>Тактильные материалы</h3>
+            <p>Американский ясень, шпон ореха, мягкое масло и воск.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Индивидуальные размеры</h3>
+            <p>Подстраиваем высоту и глубину под рост и посадку.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Доставка и установка</h3>
+            <p>Привозим, собираем и настраиваем прямо в вашем пространстве.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section quote">
+        <div class="quote-card">
+          <p>
+            «Минимализм — это не про пустоту, а про фокус. Мы убрали всё лишнее,
+            оставив только форму, свет и комфорт».
+          </p>
+          <span>Арт-директор JASMU</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="contact">
+      <div class="footer-content">
+        <div>
+          <h4>Наше производство</h4>
+          <p>Россия, Москва141021, Москва, Мытищи, Юбилейная, д. 42 корп. 2 стр. 1</p>
+        </div>
+        <div>
+          <h4>Связаться</h4>
+          <p>+7 (999) 000-00-00</p>
+          <p>hello@lumen.studio</p>
+        </div>
+        <div>
+          <h4>Соцсети</h4>
+          <p>Instagram / Telegram / Pinterest</p>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 JASMU. Все права защищены.</div>
+    </footer>
+  </body>
+</html>

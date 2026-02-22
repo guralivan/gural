@@ -1,16 +1,72 @@
 [
   {
-    "file_name": "Еженедельные отчёты (7).xlsx",
+    "file_name": "Еженедельные отчёты (3).xlsx",
     "legal_entity": "ЮЛ 2",
-    "opened_at": "2025-09-08T10:38:27.976663",
-    "file_size": 20640,
-    "records_count": 126
+    "opened_at": "2025-12-13T14:13:53.393193",
+    "file_size": 23172,
+    "records_count": 150
   },
   {
-    "file_name": "Еженедельные отчёты (8).xlsx",
+    "file_name": "Еженедельные отчёты (2).xlsx",
     "legal_entity": "ЮЛ 1",
-    "opened_at": "2025-09-08T10:38:26.817989",
-    "file_size": 20521,
-    "records_count": 126
+    "opened_at": "2025-12-13T14:13:51.960682",
+    "file_size": 23204,
+    "records_count": 152
+  },
+  {
+    "file_name": "Еженедельные отчёты (1).xlsx",
+    "legal_entity": "ЮЛ 2",
+    "opened_at": "2025-11-28T15:17:40.968416",
+    "file_size": 22945,
+    "records_count": 148
+  },
+  {
+    "file_name": "Еженедельные отчёты.xlsx",
+    "legal_entity": "ЮЛ 1",
+    "opened_at": "2025-11-28T15:17:40.031644",
+    "file_size": 22895,
+    "records_count": 149
+  },
+  {
+    "file_name": "Еженедельные отчёты (21).xlsx",
+    "legal_entity": "ЮЛ 2",
+    "opened_at": "2025-10-28T20:18:02.831425",
+    "file_size": 21736,
+    "records_count": 140
+  },
+  {
+    "file_name": "Еженедельные отчёты (22).xlsx",
+    "legal_entity": "ЮЛ 1",
+    "opened_at": "2025-10-28T20:18:02.358447",
+    "file_size": 21780,
+    "records_count": 142
+  },
+  {
+    "file_name": "Еженедельные отчёты (21).xlsx",
+    "legal_entity": "ЮЛ 1",
+    "opened_at": "2025-10-28T20:16:09.263867",
+    "file_size": 21736,
+    "records_count": 140
+  },
+  {
+    "file_name": "Еженедельные отчёты (19).xlsx",
+    "legal_entity": "ЮЛ 2",
+    "opened_at": "2025-10-13T17:50:44.516580",
+    "file_size": 21324,
+    "records_count": 136
+  },
+  {
+    "file_name": "Еженедельные отчёты (20).xlsx",
+    "legal_entity": "ЮЛ 1",
+    "opened_at": "2025-10-13T17:50:43.683367",
+    "file_size": 21385,
+    "records_count": 138
+  },
+  {
+    "file_name": "Еженедельные отчёты (16).xlsx",
+    "legal_entity": "ЮЛ 2",
+    "opened_at": "2025-09-29T09:31:33.959159",
+    "file_size": 21007,
+    "records_count": 133
   }
 ]

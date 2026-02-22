@@ -566,7 +566,7 @@ def calculate_expenses(df):
     expense_columns = {
         'Стоимость логистики': 'logistics',
         'Стоимость хранения': 'storage', 
-        'Прочие удержания': 'other'
+        'Прочие удержания/выплаты': 'other'
     }
     
     expenses = {}
@@ -665,8 +665,8 @@ def calculate_monthly_expenses(df):
             expenses['storage'] = month_data['Стоимость хранения'].sum()
         
         # Прочие
-        if 'Прочие удержания' in month_data.columns:
-            expenses['other'] = month_data['Прочие удержания'].sum()
+        if 'Прочие удержания/выплаты' in month_data.columns:
+            expenses['other'] = month_data['Прочие удержания/выплаты'].sum()
         
         # Итого
         expenses['total'] = expenses['logistics'] + expenses['storage'] + expenses['other']
@@ -1061,7 +1061,7 @@ def analyze_single_file_data(df, file_name, tab_prefix=""):
                             showlegend=True
                         )
                         
-                        st.plotly_chart(fig_comparison, use_container_width=True)
+                        st.plotly_chart(fig_comparison, use_container_width=True, key=f"{tab_prefix}forecast_comparison")
                         
                 else:
                     st.warning("⚠️ Введите выручку от остатков для расчета прогноза")
@@ -1541,7 +1541,7 @@ def analyze_single_file_data(df, file_name, tab_prefix=""):
         )
         
         st.metric(
-            label="📋 Прочие удержания",
+            label="📋 Прочие удержания/выплаты",
             value=f"{expenses['other']['amount']:,.0f} ₽",
             delta=f"{(expenses['other']['amount']/total_amount*100):.1f}% от общей суммы"
         )
@@ -1552,7 +1552,15 @@ def analyze_single_file_data(df, file_name, tab_prefix=""):
     display_df = filtered_df.copy()
     
     # Выбираем только нужные столбцы для отображения
-    display_columns = ['Дата формирования', 'Стоимость логистики', 'Стоимость хранения', 'Прочие удержания']
+    display_columns = ['Дата формирования']
+    
+    # Проверяем наличие каждой колонки перед добавлением
+    if 'Стоимость логистики' in display_df.columns:
+        display_columns.append('Стоимость логистики')
+    if 'Стоимость хранения' in display_df.columns:
+        display_columns.append('Стоимость хранения')
+    if 'Прочие удержания/выплаты' in display_df.columns:
+        display_columns.append('Прочие удержания/выплаты')
     if 'Итого к оплате' in display_df.columns:
         display_columns.append('Итого к оплате')
     if 'Общая сумма штрафов' in display_df.columns:
@@ -1566,7 +1574,15 @@ def analyze_single_file_data(df, file_name, tab_prefix=""):
         display_df['Дата формирования'] = display_df['Дата формирования'].dt.strftime('%d.%m.%Y')
     
     # Форматируем числовые колонки
-    format_columns = ['Стоимость логистики', 'Стоимость хранения', 'Прочие удержания']
+    format_columns = []
+    
+    # Проверяем наличие каждой колонки перед форматированием
+    if 'Стоимость логистики' in display_df.columns:
+        format_columns.append('Стоимость логистики')
+    if 'Стоимость хранения' in display_df.columns:
+        format_columns.append('Стоимость хранения')
+    if 'Прочие удержания/выплаты' in display_df.columns:
+        format_columns.append('Прочие удержания/выплаты')
     if 'Итого к оплате' in display_df.columns:
         format_columns.append('Итого к оплате')
     if 'Общая сумма штрафов' in display_df.columns:
@@ -1585,43 +1601,57 @@ def analyze_single_file_data(df, file_name, tab_prefix=""):
     # Показываем количество записей
     st.info(f"📊 Всего записей в таблице: {len(display_df)}")
     
+    # Создаем конфигурацию колонок только для существующих колонок
+    column_config = {}
+    
+    if "Дата формирования" in display_df.columns:
+        column_config["Дата формирования"] = st.column_config.TextColumn(
+            "📅 Дата формирования",
+            help="Дата формирования отчета",
+            width="medium"
+        )
+    
+    if "Стоимость логистики" in display_df.columns:
+        column_config["Стоимость логистики"] = st.column_config.TextColumn(
+            "🚚 Логистика",
+            help="Стоимость логистики",
+            width="medium"
+        )
+    
+    if "Стоимость хранения" in display_df.columns:
+        column_config["Стоимость хранения"] = st.column_config.TextColumn(
+            "📦 Хранение",
+            help="Стоимость хранения",
+            width="medium"
+        )
+    
+    if "Прочие удержания/выплаты" in display_df.columns:
+        column_config["Прочие удержания/выплаты"] = st.column_config.TextColumn(
+            "💰 Прочие",
+            help="Прочие удержания/выплаты",
+            width="medium"
+        )
+    
+    if "Итого к оплате" in display_df.columns:
+        column_config["Итого к оплате"] = st.column_config.TextColumn(
+            "💳 Итого к оплате",
+            help="Итого к оплате",
+            width="medium"
+        )
+    
+    if "Общая сумма штрафов" in display_df.columns:
+        column_config["Общая сумма штрафов"] = st.column_config.TextColumn(
+            "⚠️ Штрафы",
+            help="Общая сумма штрафов",
+            width="medium"
+        )
+    
     # Отображаем таблицу с настройками
     st.dataframe(
         display_df,
         use_container_width=True,
         hide_index=True,  # Скрываем индекс
-        column_config={
-            "Дата формирования": st.column_config.TextColumn(
-                "📅 Дата формирования",
-                help="Дата формирования отчета",
-                width="medium"
-            ),
-            "Стоимость логистики": st.column_config.TextColumn(
-                "🚚 Логистика",
-                help="Стоимость логистики",
-                width="medium"
-            ),
-            "Стоимость хранения": st.column_config.TextColumn(
-                "📦 Хранение",
-                help="Стоимость хранения",
-                width="medium"
-            ),
-            "Прочие удержания": st.column_config.TextColumn(
-                "💰 Прочие",
-                help="Прочие удержания",
-                width="medium"
-            ),
-            "Итого к оплате": st.column_config.TextColumn(
-                "💳 Итого к оплате",
-                help="Итого к оплате",
-                width="medium"
-            ),
-            "Общая сумма штрафов": st.column_config.TextColumn(
-                "⚠️ Штрафы",
-                help="Общая сумма штрафов",
-                width="medium"
-            )
-        }
+        column_config=column_config
     )
     
     # Графики на полную ширину
@@ -1654,7 +1684,7 @@ def analyze_single_file_data(df, file_name, tab_prefix=""):
         # Убираем неправильное свойство width
         fig_monthly.update_yaxes(tickformat=",")
         fig_monthly.update_xaxes(tickangle=45)
-        st.plotly_chart(fig_monthly, use_container_width=True)
+        st.plotly_chart(fig_monthly, use_container_width=True, key=f"{tab_prefix}monthly_total")
     else:
         st.warning("⚠️ Данные 'Итого к оплате' отсутствуют в выбранном периоде")
     
@@ -1719,7 +1749,7 @@ def analyze_single_file_data(df, file_name, tab_prefix=""):
             hovertemplate='<b>Дата:</b> %{x}<br><b>Сумма:</b> %{y:,.0f} ₽<extra></extra>'  # Шаблон при наведении
         )
         
-        st.plotly_chart(fig_total_bar, use_container_width=True)
+        st.plotly_chart(fig_total_bar, use_container_width=True, key=f"{tab_prefix}total_bar")
     else:
         st.warning("⚠️ Данные 'Итого к оплате' отсутствуют в выбранном периоде")
     
@@ -1785,7 +1815,7 @@ def analyze_single_file_data(df, file_name, tab_prefix=""):
             # Добавляем статистику по годам
             year_stats = year_comparison_df.groupby('Год')['Итого к оплате'].agg(['sum', 'mean', 'count']).round(0)
             
-            st.plotly_chart(fig_comparison, use_container_width=True)
+            st.plotly_chart(fig_comparison, use_container_width=True, key=f"{tab_prefix}year_comparison")
             
             # Показываем статистику сравнения
             st.markdown("### 📊 Статистика сравнения по годам")
@@ -1838,7 +1868,7 @@ def analyze_single_file_data(df, file_name, tab_prefix=""):
             <li><strong>Доля расходов от общей суммы:</strong> {expenses_percentage:.1f}%</li>
             <li><strong>Стоимость логистики:</strong> {expenses['logistics']['amount']:,.0f} ₽ ({expenses['logistics']['amount']/expenses['total']*100:.1f}%)</li>
             <li><strong>Стоимость хранения:</strong> {expenses['storage']['amount']:,.0f} ₽ ({expenses['storage']['amount']/expenses['total']*100:.1f}%)</li>
-            <li><strong>Прочие удержания:</strong> {expenses['other']['amount']:,.0f} ₽ ({expenses['other']['amount']/expenses['total']*100:.1f}%)</li>
+            <li><strong>Прочие удержания/выплаты:</strong> {expenses['other']['amount']:,.0f} ₽ ({expenses['other']['amount']/expenses['total']*100:.1f}%)</li>
             <li><strong>Общая сумма штрафов:</strong> {expenses['penalties']['amount']:,.0f} ₽</li>
             <li><strong>Средние расходы за неделю:</strong> {expenses['total'] / len(filtered_df):,.0f} ₽</li>
         </ul>
@@ -1852,19 +1882,29 @@ def analyze_single_file_data(df, file_name, tab_prefix=""):
         # Создаем Excel файл с отчетами
         output = BytesIO()
         with pd.ExcelWriter(output, engine='openpyxl') as writer:
-            # Основная таблица
-            export_columns = ['Дата формирования', 'Стоимость логистики', 'Стоимость хранения', 'Прочие удержания']
+            # Основная таблица - собираем только существующие колонки
+            export_columns = []
+            
+            if 'Дата формирования' in filtered_df.columns:
+                export_columns.append('Дата формирования')
+            if 'Стоимость логистики' in filtered_df.columns:
+                export_columns.append('Стоимость логистики')
+            if 'Стоимость хранения' in filtered_df.columns:
+                export_columns.append('Стоимость хранения')
+            if 'Прочие удержания/выплаты' in filtered_df.columns:
+                export_columns.append('Прочие удержания/выплаты')
             if 'Итого к оплате' in filtered_df.columns:
                 export_columns.append('Итого к оплате')
             if 'Общая сумма штрафов' in filtered_df.columns:
                 export_columns.append('Общая сумма штрафов')
             
-            filtered_df[export_columns].to_excel(
-                writer, sheet_name='Детальные данные', index=False
-            )
+            if export_columns:  # Проверяем, что есть колонки для экспорта
+                filtered_df[export_columns].to_excel(
+                    writer, sheet_name='Детальные данные', index=False
+                )
             
             # Сводка
-            summary_indicators = ['Итого к оплате', 'Налог (7%)', 'Итого к оплате (налог)', 'Общая сумма (Итого к оплате + расходы)', 'Все расходы', 'Доля расходов от общей суммы (%)', 'Стоимость логистики', 'Стоимость хранения', 'Прочие удержания', 'Общая сумма штрафов', 'Количество недель']
+            summary_indicators = ['Итого к оплате', 'Налог (7%)', 'Итого к оплате (налог)', 'Общая сумма (Итого к оплате + расходы)', 'Все расходы', 'Доля расходов от общей суммы (%)', 'Стоимость логистики', 'Стоимость хранения', 'Прочие удержания/выплаты', 'Общая сумма штрафов', 'Количество недель']
             summary_values = [
                 expenses.get('total_to_pay', {'amount': 0, 'avg_per_week': 0})['amount'],
                 tax_amount,
@@ -1963,7 +2003,7 @@ def analyze_single_file_data(df, file_name, tab_prefix=""):
             # Форматирование оси Y
             fig_monthly.update_yaxes(tickformat=',.0f')
             
-            st.plotly_chart(fig_monthly, use_container_width=True)
+            st.plotly_chart(fig_monthly, use_container_width=True, key=f"{tab_prefix}monthly_total")
             
             # Дополнительный график: Логистика и хранение по месяцам для данного ЮЛ
             st.markdown("### 🚚📦 Расходы на логистику и хранение по месяцам")
@@ -2009,7 +2049,7 @@ def analyze_single_file_data(df, file_name, tab_prefix=""):
             # Форматирование оси Y
             fig_logistics_storage.update_yaxes(tickformat=',.0f')
             
-            st.plotly_chart(fig_logistics_storage, use_container_width=True)
+            st.plotly_chart(fig_logistics_storage, use_container_width=True, key=f"{tab_prefix}logistics_storage_by_entity")
         else:
             st.info("📊 Нет данных для построения графика расходов по месяцам")
 
@@ -2895,7 +2935,7 @@ def main():
             )
             
             st.metric(
-                label="📋 Прочие удержания (общий)",
+                label="📋 Прочие удержания/выплаты (общий)",
                 value=f"{expenses_general.get('other', {}).get('amount', 0):,.0f} ₽",
                 delta=f"{(expenses_general.get('other', {}).get('amount', 0)/total_amount_general*100):.1f}% от общей суммы"
             )
@@ -2993,7 +3033,7 @@ def main():
             # Форматирование оси Y
             fig.update_yaxes(tickformat=',.0f')
             
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True, key="tab3_expenses_by_entity")
             
             # Дополнительная таблица с процентами
             st.markdown("#### 📋 Детальная таблица расходов")
@@ -3120,7 +3160,7 @@ def main():
                 # Форматирование оси Y
                 fig_monthly.update_yaxes(tickformat=',.0f')
                 
-                st.plotly_chart(fig_monthly, use_container_width=True)
+                st.plotly_chart(fig_monthly, use_container_width=True, key="tab3_monthly_total")
                 
                 # Дополнительный график: Логистика и хранение по месяцам
                 st.markdown("### 🚚📦 Расходы на логистику и хранение по месяцам")
@@ -3171,7 +3211,7 @@ def main():
                 # Форматирование оси Y
                 fig_logistics_storage.update_yaxes(tickformat=',.0f')
                 
-                st.plotly_chart(fig_logistics_storage, use_container_width=True)
+                st.plotly_chart(fig_logistics_storage, use_container_width=True, key="tab3_logistics_storage")
         
         # Детальная информация о вложениях
         if all_investments:
@@ -3455,7 +3495,7 @@ def main():
                                 showlegend=True
                             )
                             
-                            st.plotly_chart(fig_comparison, use_container_width=True)
+                            st.plotly_chart(fig_comparison, use_container_width=True, key="tab3_forecast_comparison")
                             
                     else:
                         st.warning("⚠️ Введите выручку от остатков для расчета прогноза")
@@ -3546,7 +3586,7 @@ def main():
             )
             fig_monthly.update_yaxes(tickformat=",")
             fig_monthly.update_xaxes(tickangle=45)
-            st.plotly_chart(fig_monthly, use_container_width=True)
+            st.plotly_chart(fig_monthly, use_container_width=True, key="tab3_monthly_income")
         
         # Сводка
         st.markdown("### 📋 Общая сводка")
@@ -3581,7 +3621,7 @@ def main():
                 <li><strong>XIRR:</strong> {xirr:.1f}%</li>
                 <li><strong>Стоимость логистики:</strong> {expenses_general.get('logistics', {}).get('amount', 0):,.0f} ₽</li>
                 <li><strong>Стоимость хранения:</strong> {expenses_general.get('storage', {}).get('amount', 0):,.0f} ₽</li>
-                <li><strong>Прочие удержания:</strong> {expenses_general.get('other', {}).get('amount', 0):,.0f} ₽</li>
+                <li><strong>Прочие удержания/выплаты:</strong> {expenses_general.get('other', {}).get('amount', 0):,.0f} ₽</li>
                 <li><strong>Общая сумма штрафов:</strong> {expenses_general.get('penalties', {}).get('amount', 0):,.0f} ₽</li>
                 <li><strong>Средние расходы за неделю:</strong> {summary_avg_expenses:,.0f} ₽</li>
             </ul>
