@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# RK app: загруженные файлы и локальное состояние
+RK/uploads/
+RK/*.xlsx
+RK/*.xls
+
+# Кэши и метаданные (по желанию можно не коммитить)
+*.pkl
+*.pickle
+recent_reports.json
+uploaded_reports_metadata.json
+file_cache_meta.json
+table_cache.json
+main_page_data.json
+param_values.json
+production_calendar_data.json
+settings_cache.pkl
+table_structure_cache.pkl
+data_cache.csv
+data_cache.pkl
+
+# Секреты и ключи
+.env
+.env.local
+*.key
+secrets.*
+
+# macOS
+.DS_Store
+
+# Streamlit
+.streamlit/secrets.toml
