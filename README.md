@@ -1,6 +1,6 @@
-# WB Dashboard (Streamlit)
+# gural
 
-Дашборды и аналитика для работы с маркетплейсом Wildberries.
+WB Dashboard (Streamlit) — дашборды и аналитика для работы с маркетплейсом Wildberries.
 
 ## Приложение «Реклама маркетплейса» (RK)
 
